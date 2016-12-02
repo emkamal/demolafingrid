@@ -38,21 +38,34 @@ gulp.task('watch', function() {
   gulp.watch('src/fonts/*', ['move:fonts']);
 });
 
-// Javascript VENDOR
-gulp.task('build:js:main', function() {
- return rollup.rollup({
-   entry: './src/js/index.js',
-   plugins: [
-		 babel({ runtimeHelpers: true })
-	 ]
- }).then( function ( bundle ) {
-   bundle.write({
-     format: 'iife',
-     sourceMap: true,
-     dest: './build/js/main.js'
-   });
-   browserSync.reload();
- });
+function build_js(src,dest){
+  return rollup.rollup({
+    entry: src,
+    plugins: [
+ 		 babel({ runtimeHelpers: true })
+ 	 ]
+  }).then( function ( bundle ) {
+    bundle.write({
+      format: 'iife',
+      sourceMap: true,
+      dest: dest
+    });
+    browserSync.reload();
+  });
+}
+
+// Javascript code
+gulp.task('build:js:index', function() {
+  return build_js('./src/js/index.js', './build/js/index.js');
+});
+gulp.task('build:js:piechart', function() {
+  return build_js('./src/js/piechart.js', './build/js/piechart.js');
+});
+gulp.task('build:js:powerbalance', function() {
+  return build_js('./src/js/powerbalance.js', './build/js/powerbalance.js');
+});
+gulp.task('build:js:flowmap', function() {
+  return build_js('./src/js/flowmap.js', './build/js/flowmap.js');
 });
 
 // Javascript VENDOR
@@ -82,7 +95,7 @@ gulp.task('compress:css', function() {
 
 // HTML
 var envReplace = function (env) {
-  return gulp.src(['src/index.html'])
+  return gulp.src(['src/*.html'])
     .pipe(replace('__REPLACE_ENV__', env))
     .pipe(gulp.dest('./build'));
 }
@@ -128,6 +141,7 @@ gulp.task('clean:map', function () {
 });
 
 gulp.task('move', ['move:datasets', 'move:fonts']);
+gulp.task('build:js:main', ['build:js:index', 'build:js:piechart', 'build:js:powerbalance', 'build:js:flowmap'])
 gulp.task('build:assets', ['build:js:main', 'build:js:vendor', 'build:css', 'move']);
 gulp.task('compress', ['compress:js', 'compress:css']);
 
