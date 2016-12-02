@@ -1,0 +1,6 @@
+{
+  "name": "d3-es6-boileterplate",
+  "dependencies": {
+    "d3": "~3.5.8"
+  }
+}
