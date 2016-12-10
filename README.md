@@ -30,7 +30,9 @@ The project uses [D3 boilerplate](https://github.com/emkamal/d3-es6-boilerplate)
 5. Let's code!
 
 ## Coding Workflow
+
 This is how we should do the coding on this project:
+
 1. Before starting any coding, first do git pull if there is new commit on the master repo
 2. And then type `gulp` in the shell to activate the nodeJS server
 3. Start your coding, this coding should ONLY be in the src folder
