@@ -126,14 +126,14 @@ function dashboard(id, fData){
         // Utility function to be called on mouseover a pie slice.
         function mouseover(d){
             // call the update function of histogram with new data.
-            // hG.update(fData.map(function(v){
-            //     return [v.State,v.freq[d.data.type]];}),segColor(d.data.type));
+            hG.update(fData.map(function(v){
+                return [v.State,v.freq[d.data.type]];}),segColor(d.data.type));
         }
         //Utility function to be called on mouseout a pie slice.
         function mouseout(d){
             // call the update function of histogram with all data.
-            // hG.update(fData.map(function(v){
-            //     return [v.State,v.total];}), barColor);
+            hG.update(fData.map(function(v){
+                return [v.State,v.total];}), barColor);
         }
         // Animating the pie-slice requiring a custom function which specifies
         // how the intermediate paths should be drawn.
@@ -198,7 +198,7 @@ function dashboard(id, fData){
     // calculate total frequency by state for all segment.
     var sF = fData.map(function(d){return [d.State,d.total];});
 
-    var //hG = histoGram(sF), // create the histogram.
+    var hG = histoGram(sF), // create the histogram.
         pC = pieChart(tF), // create the pie-chart.
         leg= legend(tF);  // create the legend.
 }
