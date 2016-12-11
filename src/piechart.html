@@ -2,15 +2,51 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <!-- uncomment if needed -- <link rel="stylesheet" href="css/bootstrap.css"> <!-- -->
+  <!-- uncomment if needed --> <link rel="stylesheet" href="css/bootstrap.css"> <!-- -->
   <link rel="stylesheet" href="css/main.css">
+  <style>
+  svg{
+    border: 1px solid #ccc;
+    padding: 20px;
+  }
+  .legend{
+    font-size: 12px;
+  }
+  rect{
+    stroke-width: 2;
+    cursor: pointer;
+  }
+  rect.disabled{
+    fill: transparent !important;
+  }
+  #chart {
+    height: 360px;
+    position: relative;
+    width: 360px;
+  }
+  .d3tooltip {
+    background: #eee;
+    box-shadow: 0 0 5px #999999;
+    color: #333;
+    display: none;
+    font-size: 12px;
+    left: 130px;
+    padding: 10px;
+    position: absolute;
+    text-align: center;
+    top: 95px;
+    width: 80px;
+    z-index: 10;
+  }
+  </style>
   <script>
     var ENV = '__REPLACE_ENV__';
   </script>
   <body>
-    <h1>Electricity production pie chart</h1>
-    <div id='dashboard'></div>
+    <h1>Electricity Production</h1>
+    <div id="chart"></div>
   </body>
   <script src="js/vendor.js"></script>
   <script src="js/piechart.js"></script>
+
 </html>
