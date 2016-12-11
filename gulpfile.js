@@ -58,8 +58,8 @@ function build_js(src,dest){
 gulp.task('build:js:index', function() {
   return build_js('./src/js/index.js', './build/js/index.js');
 });
-gulp.task('build:js:piechart', function() {
-  return build_js('./src/js/piechart.js', './build/js/piechart.js');
+gulp.task('build:js:production', function() {
+  return build_js('./src/js/production.js', './build/js/production.js');
 });
 gulp.task('build:js:powerbalance', function() {
   return build_js('./src/js/powerbalance.js', './build/js/powerbalance.js');
@@ -141,7 +141,7 @@ gulp.task('clean:map', function () {
 });
 
 gulp.task('move', ['move:datasets', 'move:fonts']);
-gulp.task('build:js:main', ['build:js:index', 'build:js:piechart', 'build:js:powerbalance', 'build:js:flowmap'])
+gulp.task('build:js:main', ['build:js:index', 'build:js:production', 'build:js:powerbalance', 'build:js:flowmap'])
 gulp.task('build:assets', ['build:js:main', 'build:js:vendor', 'build:css', 'move']);
 gulp.task('compress', ['compress:js', 'compress:css']);
 

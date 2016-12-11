@@ -51,7 +51,11 @@
         return color(d.data.label);
       })
       .each( function(d){ this._current = d; });
-
+      path.on('mouseout', function(d){
+        tooltip.style('display','none');
+        d3.select(this).transition().attr("d",d3.select(this).attr("dtemp"));
+        path.transition().style('opacity', '1');
+      });
       path.on('mouseover', function(d){
         var total = d3.sum(dataset.map(function(d){
           return (d.enabled) ? d.count : 0;
@@ -74,11 +78,7 @@
         d3.select(this).transition().attr("d", arcOver);
       });
 
-      path.on('mouseout', function(d){
-        tooltip.style('display','none');
-        d3.select(this).transition().attr("d",d3.select(this).attr("dtemp"));
-        path.transition().style('opacity', '1');
-      });
+
 
       path.on('mousemove', function(d){
         tooltip.style('top', (d3.event.layerY + 10) + 'px').style('left', (d3.event.layerX + 10) + 'px');
