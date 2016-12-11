@@ -34,6 +34,7 @@ The project uses [D3 boilerplate](https://github.com/emkamal/d3-es6-boilerplate)
 This is how we should do the coding on this project:
 
 1. Before starting any coding, first do git pull if there is new commit on the master repo
+2. If there is a new change in package.json file, then you have to do `npm update`, if there are changes in bower.json, do `bower update`
 2. And then type `gulp` in the shell to activate the nodeJS server
 3. Start your coding, this coding should ONLY be in the src folder
 4. Any change you saved in the src folder will automatically recognised by nodejs server and with the help of BrowserSync (a module of nodeJS) it will immediately refresh the opened page on every connected browser (in this case chrome and firefox), you can see the result of your coding immediately
