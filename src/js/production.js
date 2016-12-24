@@ -11,6 +11,8 @@
   var legendRectSize = 12;
   var legendSpacing = 4;
 
+  var initialOpacity = 0.8;
+
   var color = d3.scaleOrdinal(d3.schemeCategory10);
 
   var svg = d3.select('#chart')
@@ -55,13 +57,15 @@
       .attr('fill', function(d, i){
         return color(d.data.label);
       })
+      .style('opacity', initialOpacity)
       .each( function(d){ this._current = d; });
 
       path.on('mouseout', function(d){
-        console.log("mouseout");
+        console.log("mouseout, setting");
         tooltip.style('display','none');
-        // d3.select(this).transition().attr("d",d3.select(this).attr("dtemp"));
-        // path.transition().style('opacity', '1');
+        d3.select(this).transition().attr("d","");
+        d3.select(this).transition().attr("d",d3.select(this).attr("dtemp"));
+        d3.select(this).transition().style('opacity', initialOpacity);
       });
 
       path.on('mouseover', function(d){
@@ -80,11 +84,10 @@
         //     return (d3.select(this) === circleUnderMouse) ? 1.0 : 0.5;
         // });
         // // path.style('opacity','0.5');
-        // // d3.select(this).style('opacity', '1');
         //
-        // var arcOver = arc.outerRadius(radius+10);
-        // d3.select(this).attr("dtemp",d3.select(this).attr("d"));
-        // d3.select(this).transition().attr("d", arcOver);
+        var arcOver = arc.outerRadius(radius+10);
+        d3.select(this).attr("dtemp",d3.select(this).attr("d"));
+        d3.select(this).transition().attr("d", arcOver).style('opacity', '1');
       });
 
 
