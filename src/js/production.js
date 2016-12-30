@@ -11,7 +11,7 @@
   var legendRectSize = 12;
   var legendSpacing = 4;
 
-  var initialOpacity = 0.8;
+  var initialOpacity = 0.9;
 
   var color = d3.scaleOrdinal(d3.schemeCategory10);
 
@@ -54,6 +54,7 @@
       .append( 'g' ).attr('class','slice')
       .append( 'path' )
       .attr('d', arc)
+      .attr('dinit', arc)
       .attr('fill', function(d, i){
         return color(d.data.label);
       })
@@ -63,9 +64,10 @@
       path.on('mouseout', function(d){
         console.log("mouseout, setting");
         tooltip.style('display','none');
-        d3.select(this).transition().attr("d","");
-        d3.select(this).transition().attr("d",d3.select(this).attr("dtemp"));
-        d3.select(this).transition().style('opacity', initialOpacity);
+        d3.select(this)
+          .transition()
+          .attr("d",d3.select(this).attr("dinit"))
+          .style('opacity', initialOpacity);
       });
 
       path.on('mouseover', function(d){
@@ -86,8 +88,9 @@
         // // path.style('opacity','0.5');
         //
         var arcOver = arc.outerRadius(radius+10);
-        d3.select(this).attr("dtemp",d3.select(this).attr("d"));
-        d3.select(this).transition().attr("d", arcOver).style('opacity', '1');
+        d3.select(this)
+          .transition()
+          .attr("d", arcOver).style('opacity', '1');
       });
 
 
@@ -114,6 +117,7 @@
       .attr('height', legendRectSize)
       .style('fill', color)
       .style('stroke', color)
+      .style('opacity', initialOpacity)
       .on('click', function(label){
         var rect = d3.select(this);
         var enabled = true;
