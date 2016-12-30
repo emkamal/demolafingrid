@@ -11,10 +11,11 @@
   }
   .legend{
     font-size: 12px;
+    cursor: default;
   }
   rect{
     stroke-width: 2;
-    cursor: pointer;
+
   }
   rect.disabled{
     fill: transparent !important;
@@ -35,8 +36,22 @@
     position: absolute;
     text-align: center;
     top: 95px;
-    width: 80px;
+    width: 150px;
     z-index: 10;
+  }
+  .slice text {
+    font: 10px sans-serif;
+    text-anchor: middle;
+  }
+
+  text {
+      white-space: nowrap;
+  }
+  text, foreignObject {
+      display: block;
+  }
+  .legend:hover text, .legend.active text {
+      font-weight: bold;
   }
   </style>
   <script>
