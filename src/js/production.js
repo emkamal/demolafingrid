@@ -75,7 +75,7 @@
         tooltip.style('display','none');
         d3.select(this)
           .transition()
-          .attr("d","")
+          // .attr("d","")
           .attr("d",d3.select(this).attr("dinit"))
           .style('opacity', initialOpacity);
 

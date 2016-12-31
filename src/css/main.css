@@ -1,0 +1,70 @@
+body{
+  padding-top: 50px;
+}
+.jumbotron{
+  text-align: center
+}
+.navbar-right .navbar-btn {
+    margin: 5px;
+}
+
+.vizlinks {
+    display: block;
+    width: 100%;
+    height: 200px;
+    background: #1b1b1b;
+    box-shadow: 0 0 5px #000 inset, 0 1px 0 #333;
+    position: relative;
+    overflow: hidden;
+}
+.vizlinks p {
+    position: absolute;
+    top: 0;
+    left: 0;
+    background: rgba(0, 0, 0, 0.8);
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    font-size: 1em;
+    padding: 80px 0;
+    transition: 0.25s;
+}
+.vizlinks:hover p {
+    background: rgba(0, 0, 0, 0.66);
+}
+
+#login-dp{
+    min-width: 250px;
+    padding: 14px 14px 0;
+    overflow:hidden;
+    background-color:rgba(0, 0, 0, 0.8);
+}
+#login-dp .help-block{
+    font-size:12px
+}
+#login-dp .social-buttons{
+    margin:12px 0
+}
+#login-dp .social-buttons a{
+    width: 49%;
+}
+#login-dp .form-group {
+    margin-bottom: 10px;
+}
+.btn-fb{
+    color: #fff;
+    background-color:#3b5998;
+}
+.btn-fb:hover{
+    color: #fff;
+    background-color:#496ebc
+}
+.btn-tw{
+    color: #fff;
+    background-color:#55acee;
+}
+.btn-tw:hover{
+    color: #fff;
+    background-color:#59b5fa;
+}
+@media(max-width:768px)
