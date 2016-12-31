@@ -129,6 +129,13 @@ gulp.task('move:fonts', function() {
   .pipe(reload({stream:true}));
 });
 
+// Images
+gulp.task('move:images', function() {
+  return gulp.src('./src/images/*')
+  .pipe(gulp.dest('./build/images'))
+  .pipe(reload({stream:true}));
+});
+
 // Clean
 gulp.task('clean', function() {
    return gulp.src('./build/*', { read: false })
@@ -140,7 +147,7 @@ gulp.task('clean:map', function () {
     .pipe(rimraf({ force: true }));
 });
 
-gulp.task('move', ['move:datasets', 'move:fonts']);
+gulp.task('move', ['move:datasets', 'move:fonts', 'move:images']);
 gulp.task('build:js:main', ['build:js:index', 'build:js:production', 'build:js:powerbalance', 'build:js:flowmap'])
 gulp.task('build:assets', ['build:js:main', 'build:js:vendor', 'build:css', 'move']);
 gulp.task('compress', ['compress:js', 'compress:css']);
