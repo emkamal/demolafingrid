@@ -44,9 +44,9 @@
     .append('div')
     .attr('class', 'd3tooltip');
 
-  tooltip.append('div').attr('class','label');
+  tooltip.append('b').attr('class','labelname');
   tooltip.append('div').attr('class','count');
-  tooltip.append('div').attr('class','percent');
+  // tooltip.append('div').attr('class','percent');
 
   d3.csv('datasets/production.csv', function(error, dataset){
     dataset.forEach(function(d){
@@ -89,9 +89,9 @@
           return (d.enabled) ? d.count : 0;
         }));
         var percent = Math.round(1000 * d.data.count / total) / 10;
-        tooltip.select('.label').html(d.data.label);
+        tooltip.select('.labelname').html(d.data.label);
         tooltip.select('.count').html(d.data.count+" MW");
-        tooltip.select('.percent').html(percent + '%');
+        // tooltip.select('.percent').html(percent + '%');
         tooltip.style('display','block');
 
         // var circleUnderMouse = d3.select(this);
