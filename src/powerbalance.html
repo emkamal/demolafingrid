@@ -2,9 +2,39 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <!-- uncomment if needed -- <link rel="stylesheet" href="css/bootstrap.css"> <!-- -->
+  <link rel="stylesheet" href="css/bootstrap.css">
   <link rel="stylesheet" href="css/main.css">
-  <link rel="stylesheet" type="text/css" href="css/powerbalance.css">
+  <style>
+  body {
+    font-family:  Helvetica, Arial, sans-serif;
+    margin: 32px;
+  }
+  #power-gauge g.arc {
+    fill: steelblue;
+  }
+  #power-gauge g.pointer {
+    fill: #e85116;
+    stroke: #b64011;
+  }
+  #power-gauge g.label text {
+    text-anchor: middle;
+    font-size: 14px;
+    font-weight: bold;
+    fill: #666;
+  }
+  rect {
+    fill: steelblue;
+  }
+  .arrow{
+    stroke-width:3;
+    stroke:grey;
+    stroke-dasharray:5, 5;
+  }
+  #arrow{
+   stroke-width:1;
+   stroke-dasharray:0;
+  }
+  </style>
   <script>
     var ENV = '__REPLACE_ENV__';
   </script>
@@ -13,8 +43,6 @@
     <h1>Frequency Gauge</h1>
     <div id="power-gauge"></div>
   </body>
-
-  <!-- <script src="js/vendor.js"></script> -->
-  <script src="js/balance/powerbalance.js"></script>
-  <script src="js/balance/update.js"></script>
+  <script src="js/vendor.js"></script>
+  <script src="js/powerbalance.js"></script>
 </html>
