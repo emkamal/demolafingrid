@@ -24,14 +24,41 @@
   rect {
     fill: steelblue;
   }
-  .arrow{
-    stroke-width:3;
-    stroke:grey;
-    stroke-dasharray:5, 5;
-  }
   #arrow{
    stroke-width:1;
    stroke-dasharray:0;
+  }
+  .flowline-input {
+    fill: none;
+    stroke: beige;
+    stroke-width: 4;
+    stroke-dasharray: 10, 4;
+    animation: flow 1s linear infinite;
+    -webkit-animation: flow 1s linear infinite;
+  }
+  .flowline-output {
+    fill: none;
+    stroke: beige;
+    stroke-width: 4;
+    stroke-dasharray: 10, 4;
+    animation: flow-reverse 1s linear infinite;
+    -webkit-animation: flow-reverse 1s linear infinite;
+  }
+  @keyframes flow {
+    from {  stroke-dashoffset: 0; }
+    to { stroke-dashoffset: 14; }
+  }
+  @-webkit-keyframes flow {
+    from {  stroke-dashoffset: 0; }
+    to { stroke-dashoffset: 14; }
+  }
+  @keyframes flow-reverse {
+    from {  stroke-dashoffset: 14; }
+    to { stroke-dashoffset: 0; }
+  }
+  @-webkit-keyframes flow-reverse {
+    from {  stroke-dashoffset: 14; }
+    to { stroke-dashoffset: 0; }
   }
   </style>
   <script>

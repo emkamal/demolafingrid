@@ -118,28 +118,28 @@ var gauge = function(container, configuration) {
   	// 		});
     // })
     var line1 = svg.append('line')
-          .attr("class", "arrow")
+          .attr("class", "flowline-input")
           .attr("marker-end", "url(#arrow)")
         	.attr("x1", 400)
           .attr("y1", 250)
           .attr("x2", 100)
           .attr("y2", 70);
     var line2 = svg.append('line')
-          .attr("class", "arrow")
+          .attr("class", "flowline-input")
           .attr("marker-end", "url(#arrow)")
           .attr("x1", 400)
           .attr("y1", 250)
           .attr("x2", 100)
           .attr("y2", 450);
     var line3 = svg.append('line')
-          .attr("class", "arrow")
+          .attr("class", "flowline-output")
           .attr("marker-end", "url(#arrow)")
           .attr("x1", 400)
           .attr("y1", 250)
           .attr("x2", 660)
           .attr("y2", 50);
     var line4 = svg.append('line')
-          .attr("class", "arrow")
+          .attr("class", "flowline-output")
           .attr("marker-end", "url(#arrow)")
           .attr("x1", 400)
           .attr("y1", 250)
@@ -262,7 +262,7 @@ var gauge = function(container, configuration) {
           .attr("fill", "white");
     var prodLabel = svgContainer2.append("text")
           .attr("id", "prodLabel")
-          .attr("x", 45)
+          .attr("x", 40)
           .attr("y", 450)
           .text("Production")
           .attr("fill", "white");
