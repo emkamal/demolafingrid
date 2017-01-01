@@ -148,16 +148,16 @@ var gauge = function(container, configuration) {
     // Add Gauge Panel
     var gaugePanel = svg.append("rect")
           .attr("class", "gaugePanel")
-          .attr('x',230)
+          .attr('x',200)
           .attr('y', 130)
           .attr('rx', 10)
           .attr('ry', 10)
           .attr('width', 340)
-          .attr('height', 250);
+          .attr('height', 220);
     var panelLabel = svg.append("text")
           .attr("id", "panelLabel")
-          .attr('x', 335)
-          .attr('y', 340)
+          .attr('x', 310)
+          .attr('y', 330)
           .text("Real-time Frequency")
           .attr('fill', 'beige');
     // Add Gauge
@@ -185,59 +185,99 @@ var gauge = function(container, configuration) {
           .attr('class', 'impCircle')
           .attr("cx", 70)
           .attr("cy", 60)
+          .attr('r', Math.sqrt(dataset[0][1] *4/Math.PI))
           .style("fill", c)
-          .transition().duration(3000)
-          .style("fill", c.brighter(2).toString())
-          .attr('r', Math.sqrt(dataset[0][1] *4/Math.PI));
+          .transition()
+          .duration(2500)
+          .on("start", function repeat() {
+            d3.active(this)
+              .attr('r', 1.1*Math.sqrt(dataset[0][1] *4/Math.PI))
+              .style("fill", c.brighter().toString())
+          .transition()
+              .attr('r', .9*Math.sqrt(dataset[0][1] *4/Math.PI))
+              .style("fill", c.darker().toString())
+          .transition()
+            .on("start", repeat);
+      });
     var prodCircle = svgContainer2.append("circle")
           .attr('class', 'prodCircle')
           .attr("cx", 70)
           .attr("cy", 450)
+          .attr('r', Math.sqrt(dataset[1][1] *4/Math.PI))
           .style("fill", c)
-          .transition().duration(3000)
-          .style("fill", c.darker(2).toString())
-          .attr('r', Math.sqrt(dataset[1][1] *4/Math.PI));
+          .transition()
+          .duration(2500)
+          .on("start", function repeat() {
+            d3.active(this)
+              .attr('r', 1.1*Math.sqrt(dataset[1][1] *4/Math.PI))
+              .style("fill", c.brighter().toString())
+          .transition()
+              .attr('r', .9*Math.sqrt(dataset[1][1] *4/Math.PI))
+              .style("fill", c.darker().toString())
+          .transition()
+            .on("start", repeat);
+      });
     var expCircle = svgContainer2.append("circle")
           .attr('class', 'expCircle')
           .attr("cx", 660)
           .attr("cy", 60)
+          .attr('r', Math.sqrt(dataset[2][1] *4/Math.PI))
           .style("fill", c)
-          .transition().duration(3000)
-          .style("fill", c.darker().toString())
-          .attr('r', Math.sqrt(dataset[2][1] *4/Math.PI));
+          .transition()
+          .duration(2500)
+          .on("start", function repeat() {
+            d3.active(this)
+              .attr('r', 1.1*Math.sqrt(dataset[2][1] *4/Math.PI))
+              .style("fill", c.brighter().toString())
+          .transition()
+              .attr('r', .9*Math.sqrt(dataset[2][1] *4/Math.PI))
+              .style("fill", c.darker().toString())
+          .transition()
+            .on("start", repeat);
+      });
     var consCircle = svgContainer2.append("circle")
           .attr('class', 'consCircle')
           .attr("cx", 660)
           .attr("cy", 450)
+          .attr('r', Math.sqrt(dataset[3][1] *4/Math.PI))
           .style("fill", c)
-          .transition().duration(3000)
-          .style("fill", c.brighter().toString())
-          .attr('r', Math.sqrt(dataset[3][1] *4/Math.PI));
+          .transition()
+          .duration(2500)
+          .on("start", function repeat() {
+            d3.active(this)
+              .attr('r', 1.1*Math.sqrt(dataset[3][1] *4/Math.PI))
+              .style("fill", c.brighter().toString())
+          .transition()
+              .attr('r', .9*Math.sqrt(dataset[3][1] *4/Math.PI))
+              .style("fill", c.darker().toString())
+          .transition()
+            .on("start", repeat);
+      });
     // Add Circle Texts
     var impLabel = svgContainer2.append("text")
           .attr("id", "impLabel")
-          .attr("x", 40+40+10)
-          .attr("y", 50)
+          .attr("x", 40+10)
+          .attr("y", 65)
           .text("Import")
-          .attr("fill", "grey");
+          .attr("fill", "white");
     var prodLabel = svgContainer2.append("text")
           .attr("id", "prodLabel")
-          .attr("x", 40+40+10)
+          .attr("x", 45)
           .attr("y", 450)
           .text("Production")
-          .attr("fill", "grey");
+          .attr("fill", "white");
     var expLabel = svgContainer2.append("text")
           .attr("id", "expLabel")
-          .attr("x", 660+40+10)
-          .attr("y", 50)
+          .attr("x", 640)
+          .attr("y", 60)
           .text("Export")
-          .attr("fill", "grey");
+          .attr("fill", "white");
     var consLabel = svgContainer2.append("text")
           .attr("id", "consLabel")
-          .attr("x", 660+40+10)
+          .attr("x", 620)
           .attr("y", 450)
           .text("Consumption")
-          .attr("fill", "grey");
+          .attr("fill", "white");
 
 		var centerTx = centerTranslation();
 		var arcs = d3.select('.gauge').append('g')
@@ -303,11 +343,11 @@ var gauge = function(container, configuration) {
 
 function onDocumentReady() {
 	var powerGauge = gauge('#power-gauge', {
-		size: 300,
+		size: 250,
 		clipWidth: 400,
 		clipHeight: 400,
 		ringWidth: 60,
-		maxValue: 10,
+		maxValue: 100,
 		transitionMs: 4000,
 	});
 	powerGauge.render();
