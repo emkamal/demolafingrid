@@ -4,6 +4,19 @@
   <meta charset="utf-8">
   <!-- uncomment if needed --> <link rel="stylesheet" href="css/bootstrap.css"> <!-- -->
   <link rel="stylesheet" href="css/main.css">
+  <style>
+    .bar {
+      fill: steelblue;
+    }
+
+    .bar:hover {
+      fill: #3f75a2;
+    }
+
+    .axis--x path {
+      display: none;
+    }
+  </style>
   <script>
     var ENV = '__REPLACE_ENV__';
   </script>
@@ -32,6 +45,7 @@
             <li><a href="http://localhost:5000/production.html">Electricity Production</a></li>
             <li><a href="http://localhost:5000/powerbalance.html">Power Balance</a></li>
             <li><a href="http://localhost:5000/flowmap.html">Flow Map</a></li>
+            <li><a href="http://localhost:5000/consumption.html">Electricity Consumption</a></li>
           </ul>
         </li>
       </ul>
@@ -83,37 +97,18 @@
   </nav>
 
   <div class="jumbotron">
-    <h1>Electricity Market Data Dashboard</h1>
+    <h1>Electricity Consumption</h1>
   </div>
 
     <div class="container-fluid">
       <div class="row">
-        <div class="col-md-4 col-sm-4">
-          <a class="vizlinks" href="production.html">
-            <img src="images/production.jpg" class="img-responsive"/>
-            <p>Electricity production</p>
-          </a>
-        </div>
-        <div class="col-md-4 col-sm-4">
-          <a class="vizlinks" href="powerbalance.html">
-            <img src="images/powerbalance.jpg" class="img-responsive"/>
-            <p>Power balance</p>
-          </a>
-        </div>
-        <div class="col-md-4 col-sm-4">
-          <a class="vizlinks" href="flowmap.html">
-            <img src="images/flowmap.jpg" class="img-responsive"/>
-            <p>Flow map</p>
-          </a>
-        </div>
-        <div class="col-md-4 col-sm-4">
-          <a class="vizlinks" href="consumption.html">
-            <img src="images/powerbalance.jpg" class="img-responsive"/>
-            <p>Electricity consumption</p>
-          </a>
+        <div id="chart" class="center-block svgContainer">
+          <svg width="700" height="400"></svg>
         </div>
       </div>
     </div>
-    <script src="js/vendor.js"></script>
   </body>
+  <script src="js/vendor.js"></script>
+  <script src="js/consumption.js"></script>
+
 </html>
