@@ -5,56 +5,20 @@
   <!-- uncomment if needed --> <link rel="stylesheet" href="css/bootstrap.css"> <!-- -->
   <link rel="stylesheet" href="css/main.css">
   <style>
-  svg{
-    padding: 20px;
-  }
-  .legend{
-    font-size: 12px;
-    cursor: default;
-  }
-  rect{
-    stroke-width: 2;
 
-  }
-  rect.disabled{
-    fill: transparent !important;
-  }
-  #chart {
-    position: relative;
-  }
-  .d3tooltip {
-    background: rgba(0,0,0,0.95);
-    border: 1px solid #000;
-    color: #fff;
-    display: none;
-    font-size: 12px;
-    left: 130px;
-    padding: 10px;
-    position: absolute;
-    text-align: left;
-    top: 95px;
-    width: 250px;
-    z-index: 10;
-  }
-  .d3tooltip .count{
-    float: right;
-  }
-  .slice text {
-    font: 1em sans-serif;
-    text-anchor: middle;
+
+  .axis .domain {
+      display: none;
   }
 
-  text {
-      white-space: nowrap;
-      fill: #fff;
+  .axis .tick line {
+      stroke: white;
   }
-  text, foreignObject {
-      display: block;
+
+  .axis .tick text {
+      fill: white;
   }
-  .legend:hover text, .legend.active text,
-  .slice:hover text, .slice.active text {
-      font-weight: bold;
-  }
+
   </style>
   <script>
     var ENV = '__REPLACE_ENV__';
@@ -137,17 +101,13 @@
   <div class="jumbotron">
     <h1>Electricity Production</h1>
   </div>
-
     <div class="container-fluid">
-      <div class="row">
-        <div id="chart" class="center-block svgContainer"></div>
-      </div>
-      <div class="row">
-        <textarea cols="100" rows="20" id="dump" class="center-block">contenta</textarea>
+      <div class="row" class="center-block svgContainer">
+          <svg width="960" height="500"></svg>
       </div>
     </div>
   </body>
   <script src="js/vendor.js"></script>
-  <script src="js/production.js"></script>
+  <script src="js/production_ratio.js"></script>
 
 </html>
