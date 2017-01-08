@@ -13,9 +13,6 @@
       fill: #3f75a2;
     }
 
-    .axis--x path {
-      display: none;
-    }
   </style>
   <script>
     var ENV = '__REPLACE_ENV__';
@@ -105,6 +102,12 @@
         <div id="chart" class="center-block svgContainer">
           <svg width="700" height="400"></svg>
         </div>
+        <div align ="center">
+           From : <input type="date" name="field1" id="field1" />
+           To :   <input type="date" name="field2" id="field2" /><br /><br />
+           <input type="button" onclick="render(true)" value="Submit" />
+         </div>
+
       </div>
     </div>
   </body>
