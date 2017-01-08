@@ -5,8 +5,8 @@ var svg = d3.select("svg"),
 
 var x = d3.scaleBand().rangeRound([0, width]),
     y = d3.scaleLinear().rangeRound([height, 0]);
-var	parseDate = d3.timeParse("%Y-%m-%d")
-var hAxis = d3.axisBottom().scale(x).tickFormat(d3.timeFormat("%Y-%m-%d"));
+var	parseDate = d3.timeParse("%H")
+var hAxis = d3.axisBottom().scale(x).tickFormat(d3.timeFormat("%H"));
 var vAxis = d3.axisLeft().scale(y).tickFormat(d3.format("s"));
 var div = d3.select('body').append('div')
               .attr("class", "tooltip")
@@ -17,13 +17,13 @@ var g = svg.append("g")
 
 // real consumption
 d3.csv("datasets/consumption.csv", function(d) {
-  d.date = parseDate(d.date);
+  d.time = parseDate(d.time);
   d.consumption = +d.consumption;
   return d;
 }, function(error, data) {
   if (error) throw error;
 
-  x.domain(data.map(function(d) { return d.date; }));
+  x.domain(data.map(function(d) { return d.time; }));
   y.domain([0, d3.max(data, function(d) { return d.consumption; })]);
 
   g.append("g")
@@ -33,9 +33,9 @@ d3.csv("datasets/consumption.csv", function(d) {
       .selectAll("text")
 					.style("text-anchor", "end")
           .style("fill", "#e0e0e0")
-					.attr("dx", "-.8em")
-					.attr("dy", "-.55em")
-					.attr("transform", "rotate(-90)" );
+					.attr("dx", "+.50em")
+					.attr("dy", "+1.55em")
+					.attr("transform", "rotate(0)" );
 
   g.append("g")
       .attr("class", "axis axis--y")
@@ -48,7 +48,7 @@ d3.csv("datasets/consumption.csv", function(d) {
     .data(data)
     .enter().append("rect")
       .attr("class", "bar")
-      .attr("x", function(d) { return x(d.date); })
+      .attr("x", function(d) { return x(d.time); })
       .attr("y", function(d) { return y(d.consumption); })
       .attr("width", 0.8*x.bandwidth())
       .attr("height", function(d) { return height - y(d.consumption); })
@@ -57,8 +57,8 @@ d3.csv("datasets/consumption.csv", function(d) {
                 .duration(200)
                 .style("opacity", 1);
             div	.html(d.consumption+"MWh/h")
-                .style("left", (110+x(d.date)) + "px")
-                .style("top", (250+y(d.consumption)) + "px");
+                .style("left", (60+x(d.time)) + "px")
+                .style("top", (270+y(d.consumption)) + "px");
             })
       .on("mouseout", function(d) {
            div.transition()
@@ -68,21 +68,21 @@ d3.csv("datasets/consumption.csv", function(d) {
 });
 
 d3.csv("datasets/consumption-forecast.csv", function(d) {
-  d.date = parseDate(d.date);
+  d.time = parseDate(d.time);
   d.consumption = +d.consumption;
   return d;
 }, function(error, data) {
   if (error) throw error;
+
   var line = d3.line()
-    .x(function(d) { return x(d.date); })
+    .x(function(d) { return x(d.time); })
     .y(function(d) { return y(d.consumption); });
-  // var dot = d3.dot()
-  //   .cx(function(d) { return cx(d.date); })
-  //   .cy(function(d) { return cy(d.consumption); });
-  x.domain(data.map(function(d) { return d.date; }));
+
+  x.domain(data.map(function(d) { return d.time; }));
   y.domain([0, d3.max(data, function(d) { return d.consumption; })]);
+
   g.append("path")
-      .attr("transform", "translate(" + 0.4*x.bandwidth() + ", 0)")
+      .attr("transform", "translate(" + 0.5*x.bandwidth() + ", 0)")
       .datum(data)
       .attr("class", "line")
       .attr("d", line)
@@ -92,9 +92,31 @@ d3.csv("datasets/consumption-forecast.csv", function(d) {
       .style("stroke-width", "4px")
       .style("stroke-linecap", "round")
       .style("stroke-linejoin", "round");
-      // .append("dot")
-      // .attr("r", 3.5)
-      // .attr("cx", x(d.date))
-      // .attr("cy", y(d.consumption));
+
+  g.selectAll("circle")
+      .data(data)
+      .enter().append('circle')
+      .attr('cx', function (d) {
+          return (x(d.time)+0.45*x.bandwidth());
+      })
+      .attr('cy', function (d) {
+          return y(d.consumption);
+      })
+      .attr("r", "5")
+      .style("stroke", "#b5cde1")
+      .style("stroke-width", "3px")
+      .style("fill", "#dae6f0")
+      .on("mouseover", function() {
+        d3.select(this)
+          .transition()
+          .duration(200)
+          .attr("r", "9");
+      })
+      .on("mouseout", function() {
+        d3.select(this)
+          .transition()
+          .duration(100)
+          .attr("r", "5");
+      });
 
 })
