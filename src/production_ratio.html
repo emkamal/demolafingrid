@@ -6,18 +6,42 @@
   <link rel="stylesheet" href="css/main.css">
   <style>
 
+      .bar:hover {
+          fill: brown;
+      }
 
-  .axis .domain {
-      display: none;
-  }
+      .production-ratio-chart {
+          display: flex;
+          justify-content: center;
+      }
 
-  .axis .tick line {
-      stroke: white;
-  }
+      .axis .domain {
+          display: none;
+      }
 
-  .axis .tick text {
-      fill: white;
-  }
+      .axis .tick line {
+          stroke: white;
+          /*font-size: 15px;*/
+      }
+
+      .axis .tick text {
+          fill: white;
+          font-size: 15px;
+      }
+
+      div.tooltip {
+          position: absolute;
+          text-align: center;
+          width: 60px;
+          height: 28px;
+          padding: 2px;
+          font: 12px sans-serif;
+          background: lightsteelblue;
+          border: 0px;
+          border-radius: 8px;
+          pointer-events: none;
+          color: black;
+      }
 
   </style>
   <script>
@@ -102,7 +126,7 @@
     <h1>Electricity Production</h1>
   </div>
     <div class="container-fluid">
-      <div class="row" class="center-block svgContainer">
+      <div class="production-ratio-chart">
           <svg width="960" height="500"></svg>
       </div>
     </div>

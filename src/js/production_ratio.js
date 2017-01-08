@@ -17,6 +17,10 @@ let y = d3.scaleLinear()
 let z = d3.scaleOrdinal()
     .range(["#98abc5", "#ff8c00"]);
 
+let tooltip = d3.select("body").append("div")
+    .attr("class", "tooltip")
+    .style("opacity", 0);
+
 d3.csv("datasets/production_ratio.csv", function(d, i, columns) {
     for (let i = 1, n = columns.length; i < n; ++i) d[columns[i]] = +d[columns[i]];
     return d;
@@ -37,11 +41,28 @@ d3.csv("datasets/production_ratio.csv", function(d, i, columns) {
         .selectAll("rect")
         .data(function(d) { return keys.map(function(key) { return {key: key, value: d[key]}; }); })
         .enter().append("rect")
+        .attr("class", "bar")
         .attr("x", function(d) { return x1(d.key); })
         .attr("y", function(d) { return y(d.value); })
         .attr("width", x1.bandwidth())
         .attr("height", function(d) { return height - y(d.value); })
-        .attr("fill", function(d) { return z(d.key); });
+        .attr("fill", function(d) { return z(d.key); })
+        .on("mousemove", function(d) {
+            tooltip.transition()
+                .duration(200)
+                .style("opacity", .9);
+            tooltip.html(d.key + ": " + d.value)
+                .style("left", (d3.event.pageX) + "px")
+                .style("top", (d3.event.pageY - 28) + "px")
+                .style("width", "120px")
+                .style("height", "20px")
+                .style("font-size", "15px")
+        })
+        .on("mouseout", function(d) {
+            tooltip.transition()
+                .duration(500)
+                .style("opacity", 0);
+        });
 
     g.append("g")
         .attr("class", "axis")
@@ -56,6 +77,7 @@ d3.csv("datasets/production_ratio.csv", function(d, i, columns) {
         .attr("y", y(y.ticks().pop()) + 0.5)
         .attr("dy", "0.32em")
         .attr("fill", "white")
+        .attr("font-size", 15)
         .attr("font-weight", "bold")
         .attr("text-anchor", "start")
         .text("Capacity (MW)");
