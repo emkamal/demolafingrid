@@ -67,6 +67,9 @@ gulp.task('build:js:powerbalance', function() {
 gulp.task('build:js:flowmap', function() {
   return build_js('./src/js/flowmap.js', './build/js/flowmap.js');
 });
+gulp.task('build:js:bootstrap-datepicker', function() {
+  return build_js('./src/js/bootstrap-datepicker.js', './build/js/bootstrap-datepicker.js');
+});
 gulp.task('build:js:consumption', function() {
   return build_js('./src/js/consumption.js', './build/js/consumption.js');
 });

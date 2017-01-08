@@ -2,17 +2,43 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <!-- uncomment if needed --> <link rel="stylesheet" href="css/bootstrap.css"> <!-- -->
+  <link rel="stylesheet" href="css/bootstrap.css">
+  <link rel="stylesheet" href="css/bootstrap-datepicker.css">
   <link rel="stylesheet" href="css/main.css">
   <style>
     .bar {
       fill: steelblue;
     }
-
     .bar:hover {
       fill: #3f75a2;
     }
-
+    div.tooltip {
+    position: absolute;
+    text-align: center;
+    width: 70px;
+    height: 20px;
+    padding: 2px;
+    font: 12px sans-serif;
+    background: black;
+    color: #e0e0e0;
+    border: 3px;
+    pointer-events: none;
+    }
+    .legend {
+      float: right;
+      margin: 20px;
+      padding: 10px;
+    }
+    #legendtext {
+      padding-left: 7px;
+      color: white;
+    }
+    .axis path {
+      stroke: white;
+    }
+    .axis line {
+      stroke: white;
+    }
   </style>
   <script>
     var ENV = '__REPLACE_ENV__';
@@ -102,16 +128,29 @@
         <div id="chart" class="center-block svgContainer">
           <svg width="700" height="400"></svg>
         </div>
-        <div align ="center">
-           From : <input type="date" name="field1" id="field1" />
-           To :   <input type="date" name="field2" id="field2" /><br /><br />
-           <input type="button" onclick="render(true)" value="Submit" />
-         </div>
+        <div class="legend">
+          <img src="images/line.png" width="35px", height="24px" />
+          <span id="legendtext">Forecast</span>
+          <br /><br />
+          <img src="images/bars.png" width="35px", height="20px" />
+          <span id="legendtext">Consumption</span>
+        </div>
+        <!-- <div align ="center"> -->
+          <!-- <div class="input-group date">
+            <input type="text" class="form-control">
+            <span class="input-group-addon">
+              <i class="glyphicon glyphicon-th"></i>
+            </span>
+          </div> -->
+          <!-- <br /><br />
+           <input type="button" onclick="render(true)" value="Submit" /> -->
+         <!-- </div> -->
 
       </div>
     </div>
   </body>
   <script src="js/vendor.js"></script>
+  <!-- <script src="js/bootstrap-datepicker.js"></script> -->
   <script src="js/consumption.js"></script>
 
 </html>

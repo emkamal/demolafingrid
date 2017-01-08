@@ -8,13 +8,9 @@ var x = d3.scaleBand().rangeRound([0, width]),
 var	parseDate = d3.timeParse("%Y-%m-%d")
 var hAxis = d3.axisBottom().scale(x).tickFormat(d3.timeFormat("%Y-%m-%d"));
 var vAxis = d3.axisLeft().scale(y).tickFormat(d3.format("s"));
-var tooltip = d3.select('body').append('div')
-    			        .style('position', 'absolute')
-    			        .style('background', '#f4f4f4')
-    			        .style('padding', '5 15px')
-    		          .style('border', '1px #333 solid')
-    			        .style('border-radius', '5px')
-    	            .style('opacity', 'o');
+var div = d3.select('body').append('div')
+              .attr("class", "tooltip")
+              .style("opacity", 0);
 
 var g = svg.append("g")
     .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
@@ -36,7 +32,7 @@ d3.csv("datasets/consumption.csv", function(d) {
       .call(hAxis)
       .selectAll("text")
 					.style("text-anchor", "end")
-          .style("fill", "grey")
+          .style("fill", "#e0e0e0")
 					.attr("dx", "-.8em")
 					.attr("dy", "-.55em")
 					.attr("transform", "rotate(-90)" );
@@ -46,7 +42,7 @@ d3.csv("datasets/consumption.csv", function(d) {
       .call(d3.axisLeft(y).ticks(10, "s"))
       .selectAll("text")
 					.style("text-anchor", "end")
-          .style("fill", "grey");
+          .style("fill", "#e0e0e0");
 
   g.selectAll(".bar")
     .data(data)
@@ -55,7 +51,20 @@ d3.csv("datasets/consumption.csv", function(d) {
       .attr("x", function(d) { return x(d.date); })
       .attr("y", function(d) { return y(d.consumption); })
       .attr("width", 0.8*x.bandwidth())
-      .attr("height", function(d) { return height - y(d.consumption); });
+      .attr("height", function(d) { return height - y(d.consumption); })
+      .on("mouseover", function(d) {
+            div.transition()
+                .duration(200)
+                .style("opacity", 1);
+            div	.html(d.consumption+"MWh/h")
+                .style("left", (110+x(d.date)) + "px")
+                .style("top", (250+y(d.consumption)) + "px");
+            })
+      .on("mouseout", function(d) {
+           div.transition()
+               .duration(500)
+               .style("opacity", 0);
+       });
 });
 
 d3.csv("datasets/consumption-forecast.csv", function(d) {
@@ -67,6 +76,9 @@ d3.csv("datasets/consumption-forecast.csv", function(d) {
   var line = d3.line()
     .x(function(d) { return x(d.date); })
     .y(function(d) { return y(d.consumption); });
+  // var dot = d3.dot()
+  //   .cx(function(d) { return cx(d.date); })
+  //   .cy(function(d) { return cy(d.consumption); });
   x.domain(data.map(function(d) { return d.date; }));
   y.domain([0, d3.max(data, function(d) { return d.consumption; })]);
   g.append("path")
@@ -77,5 +89,12 @@ d3.csv("datasets/consumption-forecast.csv", function(d) {
       //.curveCardinal()
       .style("stroke", "white")
       .style("fill", "none")
-      .style("stroke-width", "3px");
+      .style("stroke-width", "4px")
+      .style("stroke-linecap", "round")
+      .style("stroke-linejoin", "round");
+      // .append("dot")
+      // .attr("r", 3.5)
+      // .attr("cx", x(d.date))
+      // .attr("cy", y(d.consumption));
+
 })
