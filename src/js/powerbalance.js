@@ -1,4 +1,4 @@
-import * as d3 from "d3";
+
 var gauge = function(container, configuration) {
 	var that = {};
 	var config = {
