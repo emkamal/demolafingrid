@@ -228,3 +228,40 @@
   });
 
 })(window.d3);
+
+$(function(){
+
+  var mode = "last"
+  var apiVersion = "v1";
+  var baseUrl = `http://devel-loadb-189d3hbq1rx2l-2025466794.eu-west-1.elb.amazonaws.com/${apiVersion}/variable`;
+  var baseUrl = `https://data.fingrid.fi/${apiVersion}/variable`;
+  var dataType = "json"
+  var apiKey = "E3wjvPIcUG6xdcRp5SXew1HRNHNa64P4a4O72nbv"
+
+  var start = new Date(2016, 12, 1);
+  var end = new Date(2016, 12, 30);
+
+  $.ajax({
+    url: `${baseUrl}/200/event/json/`,
+    type: "POST",
+    contentType: "application/json",
+    dataType: "json",
+    xhrFields: {
+      withCredentials: true
+    },
+    crossDomain: true,
+    // dataType: "jsonp",
+    data: {
+      "Accept": "application/json",
+      "x-api-key": apiKey,
+    }
+  })
+  .done(function( data ) {
+    // if ( console && console.log ) {
+    //   console.log( "Sample of data:", data.slice( 0, 100 ) );
+    // }
+    $("#dump").html("data\n"+data);
+  });
+
+  // $("#dump").html("hoho"+start.toUTCString()+"\n"+end.toUTCString());
+});
