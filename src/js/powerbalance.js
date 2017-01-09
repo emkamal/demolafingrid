@@ -25,8 +25,10 @@ var gauge = function(container, configuration) {
 		labelFormat					: d3.format(',d'),
 		labelInset					: 10,
 
-		arcColorFn					: d3.interpolateHsl(d3.rgb('#e8e2ca'), d3.rgb('#3e6c0a'))
+		arcColorFn					: [d3.rgb('#F65640'), d3.rgb('#F6AC52'), d3.rgb('#5AF694'), d3.rgb('#F6AC52'), d3.rgb('#F65640')]
 	};
+
+
 	var range = undefined;
 	var r = undefined;
 	var pointerHeadLength = undefined;
@@ -40,7 +42,9 @@ var gauge = function(container, configuration) {
 	var pointer = undefined;
 
 	var donut = d3.layout.pie();
-
+	var tooltip = d3.select('body').append('div')
+	              .attr("class", "tooltip")
+	              .style("opacity", 0);
 	function deg2rad(deg) {
 		return deg * Math.PI / 180;
 	}
@@ -65,8 +69,7 @@ var gauge = function(container, configuration) {
 		scale = d3.scale.linear()
 			.range([0,1])
 			.domain([config.minValue, config.maxValue]);
-
-		ticks = scale.ticks(config.majorTicks);
+		ticks = scale.ticks(5);
 		tickData = d3.range(config.majorTicks).map(function() {return 1/config.majorTicks;});
 
 		arc = d3.svg.arc()
@@ -84,7 +87,7 @@ var gauge = function(container, configuration) {
 	that.configure = configure;
 
 	function centerTranslation() {
-		return 'translate('+(r+250) +','+ (r+150) +')';
+		return 'translate('+(r+275) +','+ (r+160) +')';
 	}
 
 	function isRendered() {
@@ -99,25 +102,6 @@ var gauge = function(container, configuration) {
 				.attr('width', 2*config.clipWidth)
 				.attr('height', 2*config.clipHeight);
 
-    // // Add lines
-    // var margin = 10;
-    // var lineDir = [
-    //   { x1:400, y1:250, x2:40, y2:50 },
-    //   { x1:400, y1:250, x2:40, y2:450 },
-    //   { x1:400, y1:250, x2:660, y2:50 },
-    //   { x1:400, y1:250, x2:660, y2:450 },
-    // ];
-    //
-    // d3.range(4).forEach(function(i){
-    // 	svg.append('line')
-    // 		.attr("class", "arrow")
-  	// 		.attr("marker-end", "url(#arrow)")
-  	// 		.attr("x1", lineDir[i].x1)
-    // 		.attr("y1", lineDir[i].y1)
-    // 		.attr("x2", lineDir[i].x2)
-    // 		.attr("y2", lineDir[i].y2)
-  	// 		});
-    // })
     var line1 = svg.append('line')
           .attr("class", "flowline-input")
           .attr("marker-end", "url(#arrow)")
@@ -131,33 +115,33 @@ var gauge = function(container, configuration) {
           .attr("x1", 400)
           .attr("y1", 250)
           .attr("x2", 100)
-          .attr("y2", 450);
+          .attr("y2", 430);
     var line3 = svg.append('line')
           .attr("class", "flowline-output")
           .attr("marker-end", "url(#arrow)")
           .attr("x1", 400)
           .attr("y1", 250)
-          .attr("x2", 660)
-          .attr("y2", 50);
+          .attr("x2", 700)
+          .attr("y2", 70);
     var line4 = svg.append('line')
           .attr("class", "flowline-output")
           .attr("marker-end", "url(#arrow)")
           .attr("x1", 400)
           .attr("y1", 250)
-          .attr("x2", 660)
-          .attr("y2", 450);
+          .attr("x2", 700)
+          .attr("y2", 430);
     // Add Gauge Panel
     var gaugePanel = svg.append("rect")
           .attr("class", "gaugePanel")
-          .attr('x',200)
-          .attr('y', 130)
-          .attr('rx', 10)
-          .attr('ry', 10)
+          .attr('x', 230)
+          .attr('y', 138)
+          .attr('rx', 20)
+          .attr('ry', 20)
           .attr('width', 340)
           .attr('height', 220);
     var panelLabel = svg.append("text")
           .attr("id", "panelLabel")
-          .attr('x', 310)
+          .attr('x', 335)
           .attr('y', 330)
           .text("Real-time Frequency")
           .attr('fill', 'beige');
@@ -174,7 +158,7 @@ var gauge = function(container, configuration) {
       [ 'export', 253 ],
       [ 'consumption', 11513 ]
     ];
-    var c=d3.rgb('#3e6c0a') // d3_Rgb object
+    var c=d3.rgb('#188324') // d3_Rgb object
     c.toString(); // "#ee82ee"
     // Add Circles
     var svgContainer2 = svg.append("g")
@@ -184,72 +168,125 @@ var gauge = function(container, configuration) {
     var impCircle = svgContainer2.append("circle")
           .data(dataset)
           .attr('class', 'impCircle')
-          .attr("cx", 70)
-          .attr("cy", 60)
-          .attr('r', Math.sqrt(dataset[0][1] *4/Math.PI))
+          .attr("cx", 100)
+          .attr("cy", 70)
+          .attr('r', 8*Math.log(dataset[0][1]/Math.PI))
           .style("fill", c)
-          .transition()
-          .duration(2500)
-          .on("start", function repeat() {
-            d3.active(this)
-              .attr('r', 1.01*Math.sqrt(dataset[0][1] *4/Math.PI))
-              .style("fill", c.brighter().toString())
-          .transition()
-              .attr('r', .98*Math.sqrt(dataset[0][1] *4/Math.PI))
-              .style("fill", c.darker().toString())
-          .transition()
-            .on("start", repeat);
-      });
+					.on("mouseover", function(d) {
+		            tooltip.transition()
+		                .duration(200)
+		                .style("opacity", 1);
+								tooltip.html("Import:<br>2774MW")
+		                .style("left", (d3.event.pageX) + "px")
+		                .style("top", (d3.event.pageY) + "px");
+		            })
+		      .on("mouseout", function(d) {
+		           tooltip.transition()
+		               .duration(500)
+		               .style("opacity", 0);
+		       })
+					 .transition()
+           .duration(2500)
+           .on("start", function repeat() {
+             d3.active(this)
+               .attr('r', 8.08*Math.log(dataset[0][1]/Math.PI))
+               .style("fill", c.brighter().toString())
+           .transition()
+               .attr('r', 7.84*Math.log(dataset[0][1]/Math.PI))
+               .style("fill", c.darker().toString())
+           .transition()
+             .on("start", repeat);
+       		});
+
     var prodCircle = svgContainer2.append("circle")
           .attr('class', 'prodCircle')
-          .attr("cx", 70)
-          .attr("cy", 450)
-          .attr('r', Math.sqrt(dataset[1][1] *4/Math.PI))
+          .attr("cx", 100)
+          .attr("cy", 430)
+          .attr('r', 8*Math.log(dataset[1][1]/Math.PI))
           .style("fill", c)
+					.on("mouseover", function(d) {
+		            tooltip.transition()
+		                .duration(200)
+		                .style("opacity", 1);
+								tooltip.html("Production:<br>9161MW")
+		                .style("left", (d3.event.pageX) + "px")
+		                .style("top", (d3.event.pageY) + "px");
+		            })
+		      .on("mouseout", function(d) {
+		           tooltip.transition()
+		               .duration(500)
+		               .style("opacity", 0);
+		       })
           .transition()
           .duration(2500)
           .on("start", function repeat() {
             d3.active(this)
-              .attr('r', 1.01*Math.sqrt(dataset[1][1] *4/Math.PI))
+              .attr('r', 8.08*Math.log(dataset[1][1]/Math.PI))
               .style("fill", c.brighter().toString())
           .transition()
-              .attr('r', .98*Math.sqrt(dataset[1][1] *4/Math.PI))
+              .attr('r', 7.84*Math.log(dataset[1][1]/Math.PI))
               .style("fill", c.darker().toString())
           .transition()
             .on("start", repeat);
       });
     var expCircle = svgContainer2.append("circle")
           .attr('class', 'expCircle')
-          .attr("cx", 660)
-          .attr("cy", 60)
-          .attr('r', Math.sqrt(dataset[2][1] *4/Math.PI))
+          .attr("cx", 700)
+          .attr("cy", 70)
+          .attr('r', 8*Math.log(dataset[2][1]/Math.PI))
           .style("fill", c)
+					.on("mouseover", function(d) {
+		            tooltip.transition()
+		                .duration(200)
+		                .style("opacity", 1);
+								tooltip.html("Export:<br>253MW")
+		                .style("left", (d3.event.pageX) + "px")
+		                .style("top", (d3.event.pageY) + "px");
+		            })
+		      .on("mouseout", function(d) {
+		           tooltip.transition()
+		               .duration(100)
+		               .style("opacity", 0);
+		       })
           .transition()
           .duration(2500)
           .on("start", function repeat() {
             d3.active(this)
-              .attr('r', 1.01*Math.sqrt(dataset[2][1] *4/Math.PI))
+              .attr('r', 8.08*Math.log(dataset[2][1]/Math.PI))
               .style("fill", c.brighter().toString())
           .transition()
-              .attr('r', .98*Math.sqrt(dataset[2][1] *4/Math.PI))
+              .attr('r', 7.84*Math.log(dataset[2][1]/Math.PI))
               .style("fill", c.darker().toString())
           .transition()
             .on("start", repeat);
       });
     var consCircle = svgContainer2.append("circle")
           .attr('class', 'consCircle')
-          .attr("cx", 660)
-          .attr("cy", 450)
-          .attr('r', Math.sqrt(dataset[3][1] *4/Math.PI))
+          .attr("cx", 700)
+          .attr("cy", 430)
+          .attr('r', 8*Math.log(dataset[3][1]/Math.PI))
           .style("fill", c)
+					.on("mouseover", function(d) {
+		            tooltip.transition()
+		                .duration(200)
+		                .style("opacity", 1);
+								tooltip.html("Consumption:<br>11513MW")
+		                .style("left", (d3.event.pageX) + "px")
+		                .style("top", (d3.event.pageY) + "px");
+		            })
+		      .on("mouseout", function(d) {
+		           tooltip.transition()
+		               .duration(500)
+		               .style("opacity", 0);
+		       })
           .transition()
           .duration(2500)
           .on("start", function repeat() {
             d3.active(this)
-              .attr('r', 1.01*Math.sqrt(dataset[3][1] *4/Math.PI))
+              .attr('r', 8.08*Math.log(dataset[3][1]/Math.PI))
               .style("fill", c.brighter().toString())
           .transition()
-              .attr('r', .98*Math.sqrt(dataset[3][1] *4/Math.PI))
+              .attr('r', 7.84*Math.log(dataset[3][1]/Math.PI))
               .style("fill", c.darker().toString())
           .transition()
             .on("start", repeat);
@@ -257,26 +294,26 @@ var gauge = function(container, configuration) {
     // Add Circle Texts
     var impLabel = svgContainer2.append("text")
           .attr("id", "impLabel")
-          .attr("x", 40+10)
-          .attr("y", 65)
+          .attr("x", 80)
+          .attr("y", 75)
           .text("Import")
           .attr("fill", "white");
     var prodLabel = svgContainer2.append("text")
           .attr("id", "prodLabel")
-          .attr("x", 40)
-          .attr("y", 450)
+          .attr("x", 68)
+          .attr("y", 435)
           .text("Production")
           .attr("fill", "white");
     var expLabel = svgContainer2.append("text")
           .attr("id", "expLabel")
-          .attr("x", 640)
-          .attr("y", 60)
+          .attr("x", 680)
+          .attr("y", 75)
           .text("Export")
           .attr("fill", "white");
     var consLabel = svgContainer2.append("text")
           .attr("id", "consLabel")
-          .attr("x", 620)
-          .attr("y", 450)
+          .attr("x", 660)
+          .attr("y", 435)
           .text("Consumption")
           .attr("fill", "white");
 
@@ -289,7 +326,7 @@ var gauge = function(container, configuration) {
 				.data(tickData)
 			.enter().append('path')
 				.attr('fill', function(d, i) {
-					return config.arcColorFn(d * i);
+					 return config.arcColorFn[i];
 				})
 				.attr('d', arc);
 
