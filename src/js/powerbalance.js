@@ -13,15 +13,16 @@ var gauge = function(container, configuration) {
 		pointerHeadLengthPercent	: 0.9,
 
 		minValue					: 0,
-		maxValue					: 10,
+		maxValue					: 100,
 
 		minAngle					: -90,
+		midAngle					: -10,
 		maxAngle					: 90,
 
 		transitionMs				: 750,
 
 		majorTicks					: 5,
-		labelFormat					: d3.format(',g'),
+		labelFormat					: d3.format(',d'),
 		labelInset					: 10,
 
 		arcColorFn					: d3.interpolateHsl(d3.rgb('#e8e2ca'), d3.rgb('#3e6c0a'))
@@ -168,10 +169,10 @@ var gauge = function(container, configuration) {
 
     //dummy data
     var dataset = [
-      [ 'import', 1000 ],
-      [ 'production', 3000 ],
-      [ 'export', 2498 ],
-      [ 'consumption', 1573 ]
+      [ 'import', 2774 ],
+      [ 'production', 9161 ],
+      [ 'export', 253 ],
+      [ 'consumption', 11513 ]
     ];
     var c=d3.rgb('#3e6c0a') // d3_Rgb object
     c.toString(); // "#ee82ee"
@@ -191,10 +192,10 @@ var gauge = function(container, configuration) {
           .duration(2500)
           .on("start", function repeat() {
             d3.active(this)
-              .attr('r', 1.1*Math.sqrt(dataset[0][1] *4/Math.PI))
+              .attr('r', 1.01*Math.sqrt(dataset[0][1] *4/Math.PI))
               .style("fill", c.brighter().toString())
           .transition()
-              .attr('r', .9*Math.sqrt(dataset[0][1] *4/Math.PI))
+              .attr('r', .98*Math.sqrt(dataset[0][1] *4/Math.PI))
               .style("fill", c.darker().toString())
           .transition()
             .on("start", repeat);
@@ -209,10 +210,10 @@ var gauge = function(container, configuration) {
           .duration(2500)
           .on("start", function repeat() {
             d3.active(this)
-              .attr('r', 1.1*Math.sqrt(dataset[1][1] *4/Math.PI))
+              .attr('r', 1.01*Math.sqrt(dataset[1][1] *4/Math.PI))
               .style("fill", c.brighter().toString())
           .transition()
-              .attr('r', .9*Math.sqrt(dataset[1][1] *4/Math.PI))
+              .attr('r', .98*Math.sqrt(dataset[1][1] *4/Math.PI))
               .style("fill", c.darker().toString())
           .transition()
             .on("start", repeat);
@@ -227,10 +228,10 @@ var gauge = function(container, configuration) {
           .duration(2500)
           .on("start", function repeat() {
             d3.active(this)
-              .attr('r', 1.1*Math.sqrt(dataset[2][1] *4/Math.PI))
+              .attr('r', 1.01*Math.sqrt(dataset[2][1] *4/Math.PI))
               .style("fill", c.brighter().toString())
           .transition()
-              .attr('r', .9*Math.sqrt(dataset[2][1] *4/Math.PI))
+              .attr('r', .98*Math.sqrt(dataset[2][1] *4/Math.PI))
               .style("fill", c.darker().toString())
           .transition()
             .on("start", repeat);
@@ -245,10 +246,10 @@ var gauge = function(container, configuration) {
           .duration(2500)
           .on("start", function repeat() {
             d3.active(this)
-              .attr('r', 1.1*Math.sqrt(dataset[3][1] *4/Math.PI))
+              .attr('r', 1.01*Math.sqrt(dataset[3][1] *4/Math.PI))
               .style("fill", c.brighter().toString())
           .transition()
-              .attr('r', .9*Math.sqrt(dataset[3][1] *4/Math.PI))
+              .attr('r', .98*Math.sqrt(dataset[3][1] *4/Math.PI))
               .style("fill", c.darker().toString())
           .transition()
             .on("start", repeat);
@@ -317,7 +318,7 @@ var gauge = function(container, configuration) {
 
 		pointer = pg.append('path')
 			.attr('d', pointerLine/*function(d) { return pointerLine(d) +'Z';}*/ )
-			.attr('transform', 'rotate(' +config.minAngle +')');
+			.attr('transform', 'rotate(0)');
 
 		update(newValue === undefined ? 0 : newValue);
 	}
@@ -328,7 +329,7 @@ var gauge = function(container, configuration) {
 			configure(newConfiguration);
 		}
 		var ratio = scale(newValue);
-		var newAngle = config.minAngle + (ratio * range);
+		var newAngle = config.midAngle + (ratio * range);
 		pointer.transition()
 			.duration(config.transitionMs)
 			//.ease('elastic')
