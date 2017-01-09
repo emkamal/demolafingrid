@@ -32,6 +32,8 @@
             <li><a href="http://localhost:5000/production.html">Electricity Production</a></li>
             <li><a href="http://localhost:5000/powerbalance.html">Power Balance</a></li>
             <li><a href="http://localhost:5000/flowmap.html">Flow Map</a></li>
+            <li><a href="http://localhost:5000/consumption.html">Electricity Consumption</a></li>
+            <li><a href="http://localhost:5000/production_ratio.html">Electricity Production Ratio</a></li>
           </ul>
         </li>
       </ul>
@@ -86,7 +88,7 @@
     <h1>Electricity Market Data Dashboard</h1>
   </div>
 
-    <div class="container-fluid">
+    <div id="vizgrid" class="container-fluid">
       <div class="row">
         <div class="col-md-4 col-sm-4">
           <a class="vizlinks" href="production.html">
@@ -106,10 +108,18 @@
             <p>Flow map</p>
           </a>
         </div>
+      </div>
+      <div class="row">
         <div class="col-md-4 col-sm-4">
           <a class="vizlinks" href="consumption.html">
             <img src="images/powerbalance.jpg" class="img-responsive"/>
             <p>Electricity consumption</p>
+          </a>
+        </div>
+        <div class="col-md-4 col-sm-4">
+          <a class="vizlinks" href="production_ratio.html">
+            <img src="images/powerbalance.jpg" class="img-responsive"/>
+            <p>Production Ratio</p>
           </a>
         </div>
       </div>

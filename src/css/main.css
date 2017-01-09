@@ -7,7 +7,9 @@ body{
 .navbar-right .navbar-btn {
     margin: 5px;
 }
-
+@media (min-width: 768px){
+    #vizgrid .row{ margin-bottom: 30px; }
+}
 .vizlinks {
     display: block;
     width: 100%;
