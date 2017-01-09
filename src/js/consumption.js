@@ -7,7 +7,7 @@ var x = d3.scaleBand().rangeRound([0, width]),
     y = d3.scaleLinear().rangeRound([height, 0]);
 var	parseDate = d3.timeParse("%H")
 var hAxis = d3.axisBottom().scale(x).tickFormat(d3.timeFormat("%H"));
-var vAxis = d3.axisLeft().scale(y).tickFormat(d3.format("s"));
+var vAxis = d3.axisLeft().scale(y).tickFormat(d3.format(",d"));
 var div = d3.select('body').append('div')
               .attr("class", "tooltip")
               .style("opacity", 0);
@@ -15,7 +15,7 @@ var div = d3.select('body').append('div')
 var g = svg.append("g")
     .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
-// real consumption
+// Consumption Bar Chart
 d3.csv("datasets/consumption.csv", function(d) {
   d.time = parseDate(d.time);
   d.consumption = +d.consumption;
@@ -24,7 +24,7 @@ d3.csv("datasets/consumption.csv", function(d) {
   if (error) throw error;
 
   x.domain(data.map(function(d) { return d.time; }));
-  y.domain([0, d3.max(data, function(d) { return d.consumption; })]);
+  y.domain([0,4500]);
 
   g.append("g")
       .attr("class", "axis axis--x")
@@ -39,7 +39,7 @@ d3.csv("datasets/consumption.csv", function(d) {
 
   g.append("g")
       .attr("class", "axis axis--y")
-      .call(d3.axisLeft(y).ticks(10, "s"))
+      .call(d3.axisLeft(y).ticks(10, ",d"))
       .selectAll("text")
 					.style("text-anchor", "end")
           .style("fill", "#e0e0e0");
@@ -57,8 +57,8 @@ d3.csv("datasets/consumption.csv", function(d) {
                 .duration(200)
                 .style("opacity", 1);
             div	.html(d.consumption+"MWh/h")
-                .style("left", (60+x(d.time)) + "px")
-                .style("top", (270+y(d.consumption)) + "px");
+                .style("left", (d3.event.pageX) + "px")
+                .style("top", (d3.event.pageY) + "px");
             })
       .on("mouseout", function(d) {
            div.transition()
@@ -67,6 +67,7 @@ d3.csv("datasets/consumption.csv", function(d) {
        });
 });
 
+// Forecast Line Chart
 d3.csv("datasets/consumption-forecast.csv", function(d) {
   d.time = parseDate(d.time);
   d.consumption = +d.consumption;
@@ -79,7 +80,7 @@ d3.csv("datasets/consumption-forecast.csv", function(d) {
     .y(function(d) { return y(d.consumption); });
 
   x.domain(data.map(function(d) { return d.time; }));
-  y.domain([0, d3.max(data, function(d) { return d.consumption; })]);
+  y.domain([0, 4500]);
 
   g.append("path")
       .attr("transform", "translate(" + 0.5*x.bandwidth() + ", 0)")
@@ -118,5 +119,31 @@ d3.csv("datasets/consumption-forecast.csv", function(d) {
           .duration(100)
           .attr("r", "5");
       });
+});
+
+// MAX Line Chart
+d3.csv("datasets/consumption_max.csv", function(d) {
+  d.time = parseDate(d.time);
+  d.consumption = +d.consumption;
+  return d;
+}, function(error, data) {
+  if (error) throw error;
+
+  var line = d3.line()
+    .x(function(d) { return x(d.time); })
+    .y(function(d) { return y(d.consumption); });
+
+  x.domain(data.map(function(d) { return d.time; }));
+  y.domain([0, 4500]);
+
+  g.append("path")
+      .datum(data)
+      .attr("class", "line")
+      .attr("d", line)
+      //.curveCardinal()
+      .style("stroke", "#FF6347")
+      .style("stroke-dasharray", 3.3)
+      .style("stroke-width", "2px")
+      .style("stroke-linecap", "round");
 
 })
