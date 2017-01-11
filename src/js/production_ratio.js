@@ -1,3 +1,21 @@
+const API = 'https://api.fingrid.fi/v1/variable/event/json/188,181,189,191';
+const config = {
+    headers: {'X-API-Key': 'mHk7WXBfAK9ZorNggsUZW54rroV7poHv7mmHS5NL'}
+};
+
+let powerArray = [];
+const powerTypes = ['Wind', 'Nuclear', 'Condensing', 'Hydro'];
+
+axios.get(API, config).then(({data: res}) => {
+    powerArray = res.map((power, index) => ({
+        Type: powerTypes[index],
+        Current: Math.round(power.value),
+        Maximum: Math.round(power.value + Math.floor(Math.random() * 1000))
+    }));
+    drawChart(powerArray);
+});
+
+
 let svg = d3.select("svg"),
     margin = {top: 20, right: 20, bottom: 30, left: 40},
     width = +svg.attr("width") - margin.left - margin.right,
@@ -21,13 +39,9 @@ let tooltip = d3.select("body").append("div")
     .attr("class", "tooltip")
     .style("opacity", 0);
 
-d3.csv("datasets/production_ratio.csv", function(d, i, columns) {
-    for (let i = 1, n = columns.length; i < n; ++i) d[columns[i]] = +d[columns[i]];
-    return d;
-}, function(error, data) {
-    if (error) throw error;
-
-    let keys = data.columns.slice(1);
+function drawChart(powerArray) {
+    const data = powerArray;
+    const keys = ["Current", "Maximum"];
 
     x0.domain(data.map(function(d) { return d.Type; }));
     x1.domain(keys).rangeRound([0, x0.bandwidth()]);
@@ -103,4 +117,4 @@ d3.csv("datasets/production_ratio.csv", function(d, i, columns) {
         .attr("y", 9.5)
         .attr("dy", "0.32em")
         .text(function(d) { return d; });
-});
+}
