@@ -229,24 +229,6 @@
 
 })(window.d3);
 
-// var plotDiv = document.getElementById('container');
-// var traces = [
-// 	{x: [1,2,3], y: [2,1,4], fill: 'tozeroy'},
-// 	{x: [1,2,3], y: [1,1,2], fill: 'tonexty'},
-// 	{x: [1,2,3], y: [3,0,2], fill: 'tonexty'}
-// ];
-//
-// function stackedArea(traces) {
-// 	for(var i=1; i<traces.length; i++) {
-// 		for(var j=0; j<(Math.min(traces[i]['y'].length, traces[i-1]['y'].length)); j++) {
-// 			traces[i]['y'][j] += traces[i-1]['y'][j];
-// 		}
-// 	}
-// 	return traces;
-// }
-//
-// Plotly.newPlot(plotDiv, stackedArea(traces), {title: 'stacked and filled line chart'});
-
 var typeProperties = {
   wind: {title: "Wind",color: "#a1f4d6"},
   nuclear: {title:  "Nuclear",color: "#9fcc92"},
@@ -329,10 +311,9 @@ function drawStackedChart(pieChart){
   }
 
   for(var i=0;i<minimumXaxis;i++){
-    var date = new Date(localStorageData.wind[i].start_time);
-    stackedChartCategories.push(
-      (date.getHours() < 10?"0"+date.getHours():date.getHours())+":"+
-      (date.getMinutes() < 10?"0"+date.getMinutes():date.getMinutes())+":00");
+    var date = moment(localStorageData.wind[i].start_time);
+    date.subtract(moment().utcOffset(),"m")
+    stackedChartCategories.push(date.format("HH:mm:ss"));
   }
 
   var stackedArea = Highcharts.chart('stackedArea', {
