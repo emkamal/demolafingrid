@@ -3,6 +3,7 @@
 <head>
   <meta charset="utf-8">
   <!-- uncomment if needed --> <link rel="stylesheet" href="css/bootstrap.css"> <!-- -->
+  <link rel="stylesheet" href="css/nv.d3.css">
   <link rel="stylesheet" href="css/main.css">
   <style>
   svg{
@@ -140,14 +141,78 @@
 
     <div class="container-fluid">
       <div class="row">
-        <div id="chart" class="center-block svgContainer"></div>
+        <!-- <div id="chart" class="center-block svgContainer"></div> -->
+        <div class="col-sm-12 loadingData">
+          <div class="cssload-wrap">
+          	<div class="translate">
+          		<div class="scale"></div>
+          	</div>
+          </div>
+          <div class="cssload-wrap">
+          	<div class="translate">
+          		<div class="scale"></div>
+          	</div>
+          </div>
+          <div class="cssload-wrap">
+          	<div class="translate">
+          		<div class="scale"></div>
+          	</div>
+          </div>
+          <div class="cssload-wrap">
+          	<div class="translate">
+          		<div class="scale"></div>
+          	</div>
+          </div>
+          <div class="cssload-wrap">
+          	<div class="translate">
+          		<div class="scale"></div>
+          	</div>
+          </div>
+          <div class="cssload-wrap">
+          	<div class="translate">
+          		<div class="scale"></div>
+          	</div>
+          </div>
+          <div class="cssload-wrap">
+          	<div class="translate">
+          		<div class="scale"></div>
+          	</div>
+          </div>
+          <div class="cssload-wrap">
+          	<div class="translate">
+          		<div class="scale"></div>
+          	</div>
+          </div>
+          <div class="cssload-wrap">
+          	<div class="translate">
+          		<div class="scale"></div>
+          	</div>
+          </div>
+          <p>retrieving data...</p>
+        </div>
+        <div id="chartDivs" class="col-sm-12 hidden">
+          <div class="row">
+            <div class="panel panel-default dateBar">
+              <div class="panel-body">
+                <div id="dateInfoArea" class="col-sm-8"></div>
+                <div id="datePickerArea" class="col-sm-4"></div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div id="stackedArea" class="center-block svgContainer col-sm-8"></div>
+            <div id="pieChart" class="center-block svgContainer col-sm-4"></div>
+          </div>
+        </div>
       </div>
-      <div class="row">
-        <textarea cols="100" rows="20" id="dump" class="center-block">contenta</textarea>
-      </div>
+      <!-- <div class="row">
+        <textarea cols="100" rows="20" id="dump" class="center-block">content</textarea>
+      </div> -->
     </div>
   </body>
   <script src="js/vendor.js"></script>
+  <!-- <script type="text/javascript" src="https://cdn.plot.ly/plotly-1.5.0.min.js"></script> -->
+  <script src="http://code.highcharts.com/themes/dark-unica.js"></script>
   <script src="js/production.js"></script>
 
 </html>
