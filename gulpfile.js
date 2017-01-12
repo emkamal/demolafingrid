@@ -70,6 +70,9 @@ gulp.task('build:js:flowmap', function() {
 gulp.task('build:js:bootstrap-datepicker', function() {
   return build_js('./src/js/bootstrap-datepicker.js', './build/js/bootstrap-datepicker.js');
 });
+gulp.task('build:js:nvd3', function() {
+  return build_js('./src/js/nv.d3.min.js', './build/js/nv.d3.min.js');
+});
 gulp.task('build:js:consumption', function() {
   return build_js('./src/js/consumption.js', './build/js/consumption.js');
 });
@@ -82,7 +85,7 @@ gulp.task('build:js:vendor', () => {
   const lib = bower();
   return gulp.src(lib.ext('js').files)
     .pipe(concat('vendor.js'))
-    .pipe(compressJs())
+    // .pipe(compressJs())
     .pipe(gulp.dest('build/js'));
 });
 
