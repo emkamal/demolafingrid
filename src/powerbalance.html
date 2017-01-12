@@ -5,20 +5,34 @@
   <link rel="stylesheet" href="css/bootstrap.css">
   <link rel="stylesheet" href="css/main.css">
   <style>
-  #power-gauge g.arc {
+  /*#power-gauge g.arc {
     fill: steelblue;
-  }
+  }*/
   #power-gauge g.pointer {
-    fill: #e85116;
-    stroke: #b64011;
+    fill: #737373;
+    stroke: #737373;
   }
   #power-gauge g.label text {
     text-anchor: middle;
     font-size: 14px;
-    fill: white;
+    fill: grey;
+  }
+  div.tooltip {
+  position: absolute;
+  text-align: center;
+  vertical-align: middle;
+  width: 130px;
+  height: 40px;
+  padding: 2px;
+  font: 14px sans-serif;
+  line-height: 130%;
+  background: black;
+  color: #e0e0e0;
+  border: 2px;
+  pointer-events: none;
   }
   rect {
-    fill: steelblue;
+    fill: #95CBDE;
   }
   #arrow{
    stroke-width:1;

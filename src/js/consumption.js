@@ -5,19 +5,28 @@ var svg = d3.select("svg"),
 
 var x = d3.scaleBand().rangeRound([0, width]),
     y = d3.scaleLinear().rangeRound([height, 0]);
-var	parseDate = d3.timeParse("%H")
+var	parseTime = d3.timeParse("%Y-%m-%d-%H")
+var parseDate = d3.timeParse("%Y-%m-%d")
 var hAxis = d3.axisBottom().scale(x).tickFormat(d3.timeFormat("%H"));
 var vAxis = d3.axisLeft().scale(y).tickFormat(d3.format(",d"));
-var div = d3.select('body').append('div')
+var tooltip = d3.select('body').append('div')
               .attr("class", "tooltip")
               .style("opacity", 0);
-
+// var tooltip_peak = d3.select('body').append('div')
+//               .attr("class", "tooltip")
+//               .attr("attr", "tooltip_peak")
+//               .style("opacity", 0);
 var g = svg.append("g")
     .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
+
+function getDates() {
+	return [document.getElementById('field1').value];
+}
+
 // Consumption Bar Chart
 d3.csv("datasets/consumption.csv", function(d) {
-  d.time = parseDate(d.time);
+  d.time = parseTime(d.time);
   d.consumption = +d.consumption;
   return d;
 }, function(error, data) {
@@ -53,15 +62,15 @@ d3.csv("datasets/consumption.csv", function(d) {
       .attr("width", 0.8*x.bandwidth())
       .attr("height", function(d) { return height - y(d.consumption); })
       .on("mouseover", function(d) {
-            div.transition()
+            tooltip.transition()
                 .duration(200)
                 .style("opacity", 1);
-            div	.html(d.consumption+"MWh/h")
+            tooltip.html(d.consumption+"MWh/h")
                 .style("left", (d3.event.pageX) + "px")
                 .style("top", (d3.event.pageY) + "px");
             })
       .on("mouseout", function(d) {
-           div.transition()
+           tooltip.transition()
                .duration(500)
                .style("opacity", 0);
        });
@@ -69,7 +78,7 @@ d3.csv("datasets/consumption.csv", function(d) {
 
 // Forecast Line Chart
 d3.csv("datasets/consumption-forecast.csv", function(d) {
-  d.time = parseDate(d.time);
+  d.time = parseTime(d.time);
   d.consumption = +d.consumption;
   return d;
 }, function(error, data) {
@@ -123,7 +132,7 @@ d3.csv("datasets/consumption-forecast.csv", function(d) {
 
 // MAX Line Chart
 d3.csv("datasets/consumption_max.csv", function(d) {
-  d.time = parseDate(d.time);
+  d.time = parseTime(d.time);
   d.consumption = +d.consumption;
   return d;
 }, function(error, data) {
@@ -143,7 +152,20 @@ d3.csv("datasets/consumption_max.csv", function(d) {
       //.curveCardinal()
       .style("stroke", "#FF6347")
       .style("stroke-dasharray", 3.3)
-      .style("stroke-width", "2px")
-      .style("stroke-linecap", "round");
+      .style("stroke-width", "3px")
+      .style("stroke-linecap", "round")
+      // .on("mouseover", function(d) {
+      //       tooltip_peak.transition()
+      //           .duration(300)
+      //           .style("opacity", 1)
+      //           .text("Production Peak")
+      //           .style("left", "100px")
+      //           .style("top", "250px");
+      //       })
+      // .on("mouseout", function(d) {
+      //      tooltip_peak.transition()
+      //          .duration(500)
+      //          .style("opacity", 0);
+      //  });
 
 })

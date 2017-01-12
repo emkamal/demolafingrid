@@ -24,6 +24,18 @@
     border: 3px;
     pointer-events: none;
     }
+    /*#tooltip_peak {
+    position: absolute;
+    text-align: center;
+    width: 150px;
+    height: 80px;
+    padding: 1px;
+    font: 12px sans-serif;
+    background: blue;
+    color: #e0e0e0;
+    border: 0px;
+    pointer-events: none;
+    }*/
     .legend {
       float: right;
       margin: 10px;
@@ -130,7 +142,7 @@
         </div>
         <div class="legend">
           <img src="images/dashline.png" width="35px", height="4px" />
-          <span id="legendtext">Peak</span>
+          <span id="legendtext">Production Peak</span>
           <br /><br />
           <img src="images/line.png" width="35px", height="24px" />
           <span id="legendtext">Forecast</span>
@@ -138,6 +150,10 @@
           <img src="images/bars.png" width="35px", height="20px" />
           <span id="legendtext">Consumption</span>
         </div>
+        <div align ="center">
+    			Choose date: <input type="date" name="field1" id="field1" />
+    			<br /><br />
+    		</div>
         <!-- <div align ="center"> -->
           <!-- <div class="input-group date">
             <input type="text" class="form-control">
