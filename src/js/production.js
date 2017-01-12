@@ -278,6 +278,9 @@ function getProductionData(type, start, end){
       variableId = -1;
   }
 
+  $(".loadingData").removeClass("hidden");
+  $("#chartDivs").addClass("hidden");
+
   $.ajax({
     // url: `https://api.fingrid.fi/v1/variable/${variableId}/events/json?start_time=${start}&end_time=${end}`,
     url: `https://api.fingrid.fi/v1/variable/${variableId}/events/json?start_time=${start}&end_time=${end}`,
@@ -403,10 +406,15 @@ function drawStackedChart(pieChart){
 function drawPieChart(){
   var pieChartData = [];
   var localStorageData = JSON.parse(localStorage.getItem("data"));
+  var currentTime = "00:00:00";
 
   for (var key in localStorageData) {
     var pieChartDataName = typeProperties[key].title;
     var pieChartDataValue = localStorageData[key][localStorageData[key].length-1].value;
+    var date = new Date(localStorageData[key][localStorageData[key].length-1].start_time);
+    currentTime =
+      (date.getHours() < 10?"0"+date.getHours():date.getHours())+":"+
+      (date.getMinutes() < 10?"0"+date.getMinutes():date.getMinutes())+":00";
     pieChartData.push({name: pieChartDataName, y: parseInt(pieChartDataValue), color: typeProperties[key].color });
   }
 
@@ -421,7 +429,7 @@ function drawPieChart(){
           type: 'pie'
       },
       title: {
-          text: 'Current'
+          text: currentTime
       },
       tooltip: {
           pointFormat: '<b>{point.y}MW</b><br/>{point.percentage:.1f}%'
@@ -450,31 +458,45 @@ function drawCharts(){
   drawStackedChart(pieChart);
 }
 
+function retrieveData(date){
+  console.log(date);
+  // $("#dateInfoArea").html(date);
+
+  var todayStart = new Date(date);
+  todayStart.setHours(0);
+  todayStart.setMinutes(0);
+  var todayEnd = new Date(date);
+  todayEnd.setHours(23);
+  todayEnd.setMinutes(59);
+
+  getProductionData("wind", todayStart, todayEnd);
+  getProductionData("nuclear", todayStart, todayEnd);
+  // getProductionData("peak", todayStart, todayEnd);
+  getProductionData("hydro", todayStart, todayEnd);
+  getProductionData("condensing", todayStart, todayEnd);
+  getProductionData("codistrictheating", todayStart, todayEnd);
+  getProductionData("coindustry", todayStart, todayEnd);
+  getProductionData("other", todayStart, todayEnd);
+}
+
 $(function () {
 
     // localStorage.setItem("data", "[]");
 
     var setDate = "2016-12-27";
+    var dp = $('#datetimepicker1').datetimepicker({
+      format: "YYYY-MM-DD",
+      defaultDate: setDate
+    });
+
+    $("#datetimepicker1").on("dp.change", function(e) {
+        retrieveData(e.date.format("YYYY-MM-DD"))
+        // $('#dpEnd').data("DateTimePicker").setMinDate(e.date);
+    });
+
+    retrieveData(setDate)
 
 
-
-    var todayStart = new Date(setDate);
-    todayStart.setHours(0);
-    todayStart.setMinutes(0);
-    var todayEnd = new Date(setDate);
-    todayEnd.setHours(23);
-    todayEnd.setMinutes(59);
-
-    $("#dateInfoArea").html(setDate);
-
-    getProductionData("wind", todayStart, todayEnd);
-    getProductionData("nuclear", todayStart, todayEnd);
-    // getProductionData("peak", todayStart, todayEnd);
-    getProductionData("hydro", todayStart, todayEnd);
-    getProductionData("condensing", todayStart, todayEnd);
-    getProductionData("codistrictheating", todayStart, todayEnd);
-    getProductionData("coindustry", todayStart, todayEnd);
-    getProductionData("other", todayStart, todayEnd);
 
     // $("#dump").html(JSON.stringify(apiData));
     // console.log(apiData);

@@ -5,6 +5,7 @@
   <!-- uncomment if needed --> <link rel="stylesheet" href="css/bootstrap.css"> <!-- -->
   <link rel="stylesheet" href="css/nv.d3.css">
   <link rel="stylesheet" href="css/main.css">
+  <link rel="stylesheet" href="css/bootstrap-datepicker.css" />
   <style>
   svg{
     padding: 20px;
@@ -141,6 +142,24 @@
 
     <div class="container-fluid">
       <div class="row">
+        <div class="panel panel-default dateBar">
+          <div class="panel-body">
+            <div id="dateInfoArea" class="col-sm-8"></div>
+            <div id="datePickerArea" class="col-sm-4 form-inline">
+              <div class="form-group">
+                  <label for="datetimepicker1">Choose date</label>
+                  <div class='input-group date' id='datetimepicker1'>
+                      <input type='text' class="form-control" />
+                      <span class="input-group-addon">
+                          <span class="glyphicon glyphicon-calendar"></span>
+                      </span>
+                  </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
         <!-- <div id="chart" class="center-block svgContainer"></div> -->
         <div class="col-sm-12 loadingData">
           <div class="cssload-wrap">
@@ -191,14 +210,6 @@
           <p>retrieving data...</p>
         </div>
         <div id="chartDivs" class="col-sm-12 hidden">
-          <div class="row">
-            <div class="panel panel-default dateBar">
-              <div class="panel-body">
-                <div id="dateInfoArea" class="col-sm-8"></div>
-                <div id="datePickerArea" class="col-sm-4"></div>
-              </div>
-            </div>
-          </div>
           <div class="row">
             <div id="stackedArea" class="center-block svgContainer col-sm-8"></div>
             <div id="pieChart" class="center-block svgContainer col-sm-4"></div>

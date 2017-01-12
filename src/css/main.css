@@ -56,6 +56,10 @@ body{
 .dateBar{
   margin: 0 20px 20px 20px;
 }
+#datePickerArea {
+    padding: 0;
+    text-align: right;
+}
 
 .cssload-wrap {
 	bottom: 0;
