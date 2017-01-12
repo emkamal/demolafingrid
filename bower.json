@@ -2,8 +2,9 @@
   "name": "d3-es6-boileterplate",
   "dependencies": {
     "d3": "~4.4.0",
-  	"bootstrap": "~3.3.7",
+    "bootstrap": "~3.3.7",
     "axios": "^0.15.3",
-  	"highcharts": "~5.0.6"
+    "highcharts": "~5.0.6",
+    "eonasdan-bootstrap-datetimepicker": "^4.17.44"
   }
 }
