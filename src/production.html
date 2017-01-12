@@ -6,6 +6,7 @@
   <link rel="stylesheet" href="css/nv.d3.css">
   <link rel="stylesheet" href="css/main.css">
   <link rel="stylesheet" href="css/bootstrap-datepicker.css" />
+  <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
   <style>
   svg{
     padding: 20px;
@@ -144,8 +145,8 @@
       <div class="row">
         <div class="panel panel-default dateBar">
           <div class="panel-body">
-            <div id="dateInfoArea" class="col-sm-8"></div>
-            <div id="datePickerArea" class="col-sm-4 form-inline">
+            <!-- <div id="dateInfoArea" class="col-sm-8"></div> -->
+            <div id="datePickerArea" class="col-sm-8 form-inline pull-right">
               <div class="form-group">
                   <label for="datetimepicker1">Choose date</label>
                   <div class='input-group date' id='datetimepicker1'>
@@ -219,6 +220,118 @@
       <!-- <div class="row">
         <textarea cols="100" rows="20" id="dump" class="center-block">content</textarea>
       </div> -->
+      <div class="panel panel-default belowChartBar">
+        <div class="panel-body">
+          <div class="row">
+            <div class="col-sm-6">
+              <!-- Split button -->
+              <div class="btn-group">
+                <button type="button" class="btn btn-default">Download</button>
+                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  <span class="caret"></span>
+                  <span class="sr-only">Toggle Dropdown</span>
+                </button>
+                <ul class="dropdown-menu">
+                  <li><a href="#">Download as JPG</a></li>
+                  <li><a href="#">Download as PNG</a></li>
+                  <li><a href="#">Download as PDF</a></li>
+                  <li role="separator" class="divider"></li>
+                  <li><a href="#">Download data as CSV</a></li>
+                  <li><a href="#">Download data as TSV</a></li>
+                  <li><a href="#">Download data as JSON</a></li>
+                  <li><a href="#">Download data as Excel</a></li>
+                </ul>
+              </div>
+            </div>
+            <div class="col-sm-6">
+              <div class="social text-right">
+                <span>Share on Social</span>
+                <a class="social-icon facebook" target="blank" data-tooltip="Facebook" href="#">
+                  <i class="fa fa-facebook"></i>
+                </a>
+
+                <a class="social-icon twitter" target="blank" data-tooltip="Twitter" href="#">
+                  <i class="fa fa-twitter"></i>
+                </a>
+
+                <a class="social-icon linkedin" target="blank" data-tooltip="LinkedIn" href="#">
+                  <i class="fa fa-linkedin"></i>
+                </a>
+
+                <a class="social-icon google-plus" target="blank" data-tooltip="Google +" href="#">
+                  <i class="fa fa-google-plus"></i>
+                </a>
+
+                <a class="social-icon email" target="blank" data-tooltip="Contact e-Mail" href="#">
+                  <i class="fa fa-envelope-o"></i>
+                </a>
+
+              </div>
+            </div>
+      </div>
+    </div>
+        <!-- <div class="social-cont">
+          <div class="coll-md-6">
+            <!-- Split button --
+            <div class="btn-group">
+              <button type="button" class="btn btn-danger">Action</button>
+              <button type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <span class="caret"></span>
+                <span class="sr-only">Toggle Dropdown</span>
+              </button>
+              <ul class="dropdown-menu">
+                <li><a href="#">Action</a></li>
+                <li><a href="#">Another action</a></li>
+                <li><a href="#">Something else here</a></li>
+                <li role="separator" class="divider"></li>
+                <li><a href="#">Separated link</a></li>
+              </ul>
+            </div>
+          </div>
+          <div class="col-md-6 pull-right">
+            <div class="social">
+              <span class="text-right"><p>Share on Social</p></span>
+              <a class="social-icon facebook" target="blank" data-tooltip="Facebook" href="#">
+                <i class="fa fa-facebook"></i>
+              </a>
+
+              <a class="social-icon twitter" target="blank" data-tooltip="Twitter" href="#">
+                <i class="fa fa-twitter"></i>
+              </a>
+
+              <a class="social-icon linkedin" target="blank" data-tooltip="LinkedIn" href="#">
+                <i class="fa fa-linkedin"></i>
+              </a>
+
+              <a class="social-icon google-plus" target="blank" data-tooltip="Google +" href="#">
+                <i class="fa fa-google-plus"></i>
+              </a>
+
+              <a class="social-icon email" target="blank" data-tooltip="Contact e-Mail" href="#">
+                <i class="fa fa-envelope-o"></i>
+              </a>
+
+            </div>
+          </div>
+          <div class="clearfix"></div>
+        </div> -->
+      </div>
+      <div class="row">
+        <div class="panel panel-default vizpanel">
+          <div class="panel-heading">
+            <h3 class="panel-title">Finland's electricity production data visualization</h3>
+          </div>
+          <div class="panel-body">
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent facilisis venenatis lorem, ut convallis felis hendrerit at. Maecenas et cursus ipsum, vitae pretium risus. Phasellus id condimentum nisl, vel imperdiet massa. Vestibulum aliquet posuere accumsan. Vivamus rhoncus velit efficitur aliquet imperdiet. Quisque lorem ex, convallis ac nisi nec, ornare laoreet est. Integer hendrerit, ligula ut consectetur efficitur, lacus ex sagittis odio, et convallis leo urna et risus. Nam suscipit tristique elit ac sollicitudin. Vivamus fermentum convallis purus, ut fringilla ante semper nec. Aenean dignissim lectus lectus, eu scelerisque arcu fermentum ac. Nam interdum augue et magna efficitur pellentesque. Nam quis odio iaculis, vulputate felis nec, fermentum felis. Praesent in congue ipsum, vitae mollis massa.
+            <ul>
+              <li>Morbi sit amet velit quis sapien venenatis elementum vitae et ex.</li>
+              <li>Fusce blandit diam nec diam elementum congue.</li>
+              <li>Curabitur et diam pellentesque, blandit arcu a, varius velit.</li>
+              <li>Fusce porttitor ligula a iaculis mollis.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
     </div>
   </body>
   <script src="js/vendor.js"></script>
