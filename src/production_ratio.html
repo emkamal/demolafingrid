@@ -2,8 +2,12 @@
 <html>
 <head>
   <meta charset="utf-8">
+  <title>Electricity Production Ratio Visualization</title>
   <!-- uncomment if needed --> <link rel="stylesheet" href="css/bootstrap.css"> <!-- -->
   <link rel="stylesheet" href="css/main.css">
+  <link rel="stylesheet" href="css/bootstrap-datepicker.css" />
+  <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+  
   <style>
 
       .bar:hover {
@@ -69,9 +73,11 @@
             Viz <span class="caret"></span>
           </a>
           <ul class="dropdown-menu">
-            <li><a href="http://localhost:5000/production.html">Electricity Production</a></li>
-            <li><a href="http://localhost:5000/powerbalance.html">Power Balance</a></li>
-            <li><a href="http://localhost:5000/flowmap.html">Flow Map</a></li>
+            <li><a href="/production.html">Electricity Production</a></li>
+            <li><a href="/powerbalance.html">Power Balance</a></li>
+            <!-- <li><a href="http://localhost:5000/flowmap.html">Flow Map</a></li> -->
+            <li><a href="/consumption.html">Electricity Consumption</a></li>
+            <li><a href="/production_ratio.html">Electricity Production Ratio</a></li>
           </ul>
         </li>
       </ul>
@@ -126,8 +132,94 @@
     <h1>Electricity Production</h1>
   </div>
     <div class="container-fluid">
+      <div class="row">
+        <div class="panel panel-default dateBar">
+          <div class="panel-body">
+            <!-- <div id="dateInfoArea" class="col-sm-8"></div> -->
+            <div id="datePickerArea" class="col-sm-8 form-inline pull-right">
+              <div class="form-group">
+                  <label for="datetimepicker1">Choose date</label>
+                  <div class='input-group date' id='datetimepicker1'>
+                      <input type='text' class="form-control" />
+                      <span class="input-group-addon">
+                          <span class="glyphicon glyphicon-calendar"></span>
+                      </span>
+                  </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
       <div class="production-ratio-chart">
           <svg width="960" height="500"></svg>
+      </div>
+
+      <div class="panel panel-default belowChartBar">
+        <div class="panel-body">
+          <div class="row">
+            <div class="col-sm-6">
+              <!-- Split button -->
+              <div class="btn-group">
+                <button type="button" class="btn btn-default">Download</button>
+                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  <span class="caret"></span>
+                  <span class="sr-only">Toggle Dropdown</span>
+                </button>
+                <ul class="dropdown-menu">
+                  <li><a href="#">Download as JPG</a></li>
+                  <li><a href="#">Download as PNG</a></li>
+                  <li><a href="#">Download as PDF</a></li>
+                  <li role="separator" class="divider"></li>
+                  <li><a href="#">Download data as CSV</a></li>
+                  <li><a href="#">Download data as TSV</a></li>
+                  <li><a href="#">Download data as JSON</a></li>
+                  <li><a href="#">Download data as Excel</a></li>
+                </ul>
+              </div>
+            </div>
+            <div class="col-sm-6">
+              <div class="social text-right">
+                <span>Share on Social</span>
+                <a class="social-icon facebook" target="blank" data-tooltip="Facebook" href="#">
+                  <i class="fa fa-facebook"></i>
+                </a>
+
+                <a class="social-icon twitter" target="blank" data-tooltip="Twitter" href="#">
+                  <i class="fa fa-twitter"></i>
+                </a>
+
+                <a class="social-icon linkedin" target="blank" data-tooltip="LinkedIn" href="#">
+                  <i class="fa fa-linkedin"></i>
+                </a>
+
+                <a class="social-icon google-plus" target="blank" data-tooltip="Google +" href="#">
+                  <i class="fa fa-google-plus"></i>
+                </a>
+
+                <a class="social-icon email" target="blank" data-tooltip="Contact e-Mail" href="#">
+                  <i class="fa fa-envelope-o"></i>
+                </a>
+
+              </div>
+            </div>
+      </div>
+    </div>
+      </div>
+      <div class="row">
+        <div class="panel panel-default vizpanel">
+          <div class="panel-heading">
+            <h3 class="panel-title">Production ratio data visualization</h3>
+          </div>
+          <div class="panel-body">
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent facilisis venenatis lorem, ut convallis felis hendrerit at. Maecenas et cursus ipsum, vitae pretium risus. Phasellus id condimentum nisl, vel imperdiet massa. Vestibulum aliquet posuere accumsan. Vivamus rhoncus velit efficitur aliquet imperdiet. Quisque lorem ex, convallis ac nisi nec, ornare laoreet est. Integer hendrerit, ligula ut consectetur efficitur, lacus ex sagittis odio, et convallis leo urna et risus. Nam suscipit tristique elit ac sollicitudin. Vivamus fermentum convallis purus, ut fringilla ante semper nec. Aenean dignissim lectus lectus, eu scelerisque arcu fermentum ac. Nam interdum augue et magna efficitur pellentesque. Nam quis odio iaculis, vulputate felis nec, fermentum felis. Praesent in congue ipsum, vitae mollis massa.
+            <ul>
+              <li>Morbi sit amet velit quis sapien venenatis elementum vitae et ex.</li>
+              <li>Fusce blandit diam nec diam elementum congue.</li>
+              <li>Curabitur et diam pellentesque, blandit arcu a, varius velit.</li>
+              <li>Fusce porttitor ligula a iaculis mollis.</li>
+            </ul>
+          </div>
+        </div>
       </div>
     </div>
   </body>
