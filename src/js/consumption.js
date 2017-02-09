@@ -19,6 +19,23 @@ var tooltip = d3.select('body').append('div')
 var g = svg.append("g")
     .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
+svg.append("text")
+    .attr("transform", "rotate(-90)")
+    .attr("y", 0 - margin.left - 55)
+    .attr("x",0 - (height / 2))
+    .attr("dy", "9em")
+    .attr("fill", "white")
+    .style("text-anchor", "middle")
+    .text("Value (MWh/h)");
+
+svg.append("text")
+    .attr("transform",
+        "translate(" + (width/2) + " ," +
+        (margin.top + 80) + ")")
+    .attr("dy", "20em")
+    .attr("fill", "white")
+    .style("text-anchor", "middle")
+    .text("Date");
 
 function getDates() {
 	return [document.getElementById('field1').value];
